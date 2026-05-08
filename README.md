@@ -95,7 +95,7 @@ The system allows:
 
 ## Database
 
-* PostgreSQL
+* MySQL
 
 ## Tools
 
