@@ -12,7 +12,7 @@ public class Test
 	@GetMapping
 	public ResponseEntity<ApiResponse<String>> getTest()
 	{
-		ApiResponse<String> response = ApiResponse.<String>create().success().data("hello world").build();
+		ApiResponse<String> response = ApiResponse.<String>create().success().data("Hello World!").build();
 		return ResponseEntity.ok(response);
 	}
 }
