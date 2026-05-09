@@ -1,5 +1,7 @@
 package org.library.controller;
 
+import org.library.core.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,16 +9,10 @@ import org.springframework.web.bind.annotation.*;
 public class Test
 {
 
-	@GetMapping("/t")
-	public void getTest()
-	{
-		System.out.println("get request");
-	}
 	@GetMapping
-	public void getTest2()
+	public ResponseEntity<ApiResponse<String>> getTest()
 	{
-		System.out.println("get request");
+		ApiResponse<String> response = ApiResponse.<String>create().success().data("hello world").build();
+		return ResponseEntity.ok(response);
 	}
 }
-
-//libraryController,libraryModel,libraryService
