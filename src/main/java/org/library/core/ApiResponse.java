@@ -1,49 +1,14 @@
 package org.library.core;
 
-import lombok.Getter;
-
-@Getter
-public class ApiResponse<T>
+public record ApiResponse<T>(boolean success, T data, String message)
 {
-	private final boolean success;
-	private final T data;
-
-	private ApiResponse(Builder<T> builder)
+	public static <T> ApiResponse<T> ok(T data)
 	{
-		this.success = builder.success;
-		this.data = builder.data;
+		return new ApiResponse<>(true, data, null);
 	}
 
-	public static <T> Builder<T> create()
+	public static <T> ApiResponse<T> error(String message)
 	{
-		return new Builder<>();
-	}
-
-	public static class Builder<T>
-	{
-		private boolean success = true;
-		private T data;
-
-		public Builder<T> success(boolean success)
-		{
-			this.success = success;
-			return this;
-		}
-
-		public Builder<T> data(T data)
-		{
-			this.data = data;
-			return this;
-		}
-
-		public ApiResponse<T> build()
-		{
-			return new ApiResponse<>(this);
-		}
-
-		public Builder<T> success()
-		{
-			return this;
-		}
+		return new ApiResponse<>(false, null, message);
 	}
 }

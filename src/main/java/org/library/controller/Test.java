@@ -1,6 +1,6 @@
 package org.library.controller;
 
-import org.library.core.ApiResponse;
+import org.library.core.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ public class Test
 	@GetMapping
 	public ResponseEntity<ApiResponse<String>> getTest()
 	{
-		ApiResponse<String> response = ApiResponse.<String>create().success().data("Hello World!").build();
+		ApiResponse<String> response = ApiResponse.ok("Hello World");
 		return ResponseEntity.ok(response);
 	}
 }

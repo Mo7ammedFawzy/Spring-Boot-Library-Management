@@ -20,6 +20,6 @@ public class BookController
 	public ResponseEntity<ApiResponse<List<BookResponse>>> getAllBooks()
 	{
 		List<BookResponse> allBooks = this.bookService.getAllBooks();
-		return ResponseEntity.ok().body(ApiResponse.<List<BookResponse>>create().data(allBooks).build());
+		return ResponseEntity.ok().body(ApiResponse.ok(allBooks));
 	}
 }
