@@ -12,7 +12,6 @@ public class Test
 	@GetMapping
 	public ResponseEntity<ApiResponse<String>> getTest()
 	{
-		ApiResponse<String> response = ApiResponse.ok("Hello World");
-		return ResponseEntity.ok(response);
+		return ApiResponse.okResponse("Hello World!");
 	}
 }

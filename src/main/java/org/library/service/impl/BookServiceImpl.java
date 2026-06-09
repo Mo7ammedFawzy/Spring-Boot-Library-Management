@@ -19,7 +19,8 @@ public class BookServiceImpl implements BookService
 	@Override
 	public BookResponse createBook(BookRequest request)
 	{
-		Book createdBook = BookMapper.toEntity(request);
+		Book entity = BookMapper.toEntity(request);
+		Book createdBook = this.bookRepository.save(entity);
 		return BookMapper.toResponse(createdBook);
 	}
 
@@ -51,6 +52,6 @@ public class BookServiceImpl implements BookService
 	@Override
 	public void deleteBook(Long id)
 	{
-
+		bookRepository.deleteById(id);
 	}
 }

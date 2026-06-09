@@ -2,7 +2,7 @@ package org.library.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.library.core.ApiResponse;
-import org.library.dto.BookResponse;
+import org.library.dto.*;
 import org.library.service.impl.BookServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +20,34 @@ public class BookController
 	public ResponseEntity<ApiResponse<List<BookResponse>>> getAllBooks()
 	{
 		List<BookResponse> allBooks = this.bookService.getAllBooks();
-		return ResponseEntity.ok().body(ApiResponse.ok(allBooks));
+		return ApiResponse.okResponse(allBooks);
+	}
+
+	@PostMapping
+	public ResponseEntity<ApiResponse<BookResponse>> createBook(@RequestBody BookRequest bookRequest)
+	{
+		BookResponse createdBook = this.bookService.createBook(bookRequest);
+		return ApiResponse.okResponse(createdBook);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<BookResponse>> getBookById(@PathVariable Long id)
+	{
+		BookResponse book = this.bookService.getBookById(id);
+		return ApiResponse.okResponse(book);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id, @RequestBody BookRequest bookRequest)
+	{
+		BookResponse bookResponse = this.bookService.updateBook(id, bookRequest);
+		return ApiResponse.okResponse(bookResponse);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ApiResponse<String>> deleteBook(@PathVariable Long id)
+	{
+		this.bookService.deleteBook(id);
+		return ApiResponse.okResponse("Book deleted successfully!");
 	}
 }
