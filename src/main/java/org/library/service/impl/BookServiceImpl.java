@@ -1,6 +1,7 @@
 package org.library.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.library.core.ResourceNotFoundException;
 import org.library.dto.*;
 import org.library.entity.Book;
 import org.library.mapper.BookMapper;
@@ -34,7 +35,7 @@ public class BookServiceImpl implements BookService
 	@Override
 	public BookResponse getBookById(Long id)
 	{
-		Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class,id));
 		return BookMapper.toResponse(book);
 	}
 
@@ -42,7 +43,7 @@ public class BookServiceImpl implements BookService
 	public BookResponse updateBook(Long id, BookRequest request)
 	{
 
-		Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class,id));
 		book.setTitle(request.getTitle());
 		book.setDescription(request.getDescription());
 		book.setAvailableCopies(request.getAvailableCopies());

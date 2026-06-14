@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Refactor ApiResponse">
+    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="add book crud">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="31" />
+    <option name="cachedIndexableFilesCount" value="33" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -63,6 +61,65 @@
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000000332977514" />
+      <entry key="MS500" value="1.03195089158156" />
+      <entry key="S2" value="1.422786149125891" />
+      <entry key="S5" value="1.7098221099631918" />
+      <entry key="S10" value="1.9288378544859983" />
+      <entry key="S30" value="4.35804749038098" />
+      <entry key="S60" value="9.43289184852911" />
+      <entry key="M2" value="17.953918942650034" />
+      <entry key="M5" value="37.298613460522404" />
+      <entry key="M10" value="62.309868200366715" />
+      <entry key="M15" value="79.15239049577617" />
+      <entry key="M30" value="105.21881361635936" />
+      <entry key="H1" value="123.77130106396775" />
+      <entry key="H2" value="135.03756037519796" />
+      <entry key="H4" value="141.28491619773277" />
+      <entry key="D1" value="146.84620538417565" />
+      <entry key="W1" value="147.8342945092935" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="9.7347505361636E-12" />
+      <entry key="MS500" value="0.006816765769520247" />
+      <entry key="S2" value="0.4339722103182187" />
+      <entry key="S5" value="1.0735631516077189" />
+      <entry key="S10" value="1.4635118712854511" />
+      <entry key="S30" value="1.9506380160845695" />
+      <entry key="S60" value="2.5049281938957844" />
+      <entry key="M2" value="4.018317420699697" />
+      <entry key="M5" value="10.857726877460571" />
+      <entry key="M10" value="20.464093786314734" />
+      <entry key="M15" value="26.738994554580874" />
+      <entry key="M30" value="36.197240016903145" />
+      <entry key="H1" value="42.74032818802616" />
+      <entry key="H2" value="46.62512928318175" />
+      <entry key="H4" value="48.74697406126221" />
+      <entry key="D1" value="50.614990655959616" />
+      <entry key="W1" value="50.94476053821258" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="4.3594582077730195E-8" />
+      <entry key="MS500" value="0.05692331012944494" />
+      <entry key="S2" value="1.1057482424188814" />
+      <entry key="S5" value="2.318940830798803" />
+      <entry key="S10" value="3.11341671869912" />
+      <entry key="S30" value="6.172322189660621" />
+      <entry key="S60" value="11.821829187507975" />
+      <entry key="M2" value="21.861161948793875" />
+      <entry key="M5" value="48.044443823735136" />
+      <entry key="M10" value="82.67055671046808" />
+      <entry key="M15" value="105.8007022684497" />
+      <entry key="M30" value="141.35359793693615" />
+      <entry key="H1" value="166.47421557332834" />
+      <entry key="H2" value="181.64208695856308" />
+      <entry key="H4" value="190.02106055835947" />
+      <entry key="D1" value="197.45931244186073" />
+      <entry key="W1" value="198.7787839622273" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -77,39 +134,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "ShowUsagesActions.previewPropertyKey": "true",
-    "Spring Boot.LibraryApplication.executor": "Debug",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "fawzy",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Programming/Projects/Spring-Boot-Library-Management",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;ShowUsagesActions.previewPropertyKey&quot;: &quot;true&quot;,
+    &quot;Spring Boot.LibraryApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fawzy&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programming/Projects/Spring-Boot-Library-Management&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\Projects\Spring-Boot-Library-Management" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.library.core" />
     </key>
   </component>
   <component name="RunManager">
@@ -144,6 +204,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="" />
@@ -154,7 +222,12 @@
       <workItem from="1778275126281" duration="22000" />
       <workItem from="1778328995885" duration="11164000" />
       <workItem from="1779289852022" duration="4078000" />
-      <workItem from="1780913352857" duration="8147000" />
+      <workItem from="1780913352857" duration="9624000" />
+      <workItem from="1781075764127" duration="305000" />
+      <workItem from="1781076907183" duration="2186000" />
+      <workItem from="1781413590529" duration="572000" />
+      <workItem from="1781414267084" duration="666000" />
+      <workItem from="1781416420806" duration="3408000" />
     </task>
     <task id="LOCAL-00001" summary="Add files">
       <option name="closed" value="true" />
@@ -196,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780814569464</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add book crud">
+      <option name="closed" value="true" />
+      <created>1781017822294</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1781017822294</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +301,7 @@
     <MESSAGE value="Add (ApiResponse + Test Route)" />
     <MESSAGE value="Add Book (controler,mapper,repository,service)" />
     <MESSAGE value="Refactor ApiResponse" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor ApiResponse" />
+    <MESSAGE value="add book crud" />
+    <option name="LAST_COMMIT_MESSAGE" value="add book crud" />
   </component>
 </project>
