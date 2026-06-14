@@ -27,7 +27,7 @@ public class BookController
 	public ResponseEntity<ApiResponse<BookResponse>> createBook(@RequestBody BookRequest bookRequest)
 	{
 		BookResponse createdBook = this.bookService.createBook(bookRequest);
-		return ApiResponse.okResponse(createdBook);
+		return ApiResponse.okResponse(createdBook,"Book created successfully!");
 	}
 
 	@GetMapping("/{id}")
@@ -41,13 +41,19 @@ public class BookController
 	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id, @RequestBody BookRequest bookRequest)
 	{
 		BookResponse bookResponse = this.bookService.updateBook(id, bookRequest);
-		return ApiResponse.okResponse(bookResponse);
+		return ApiResponse.okResponse(bookResponse,"Book updated successfully!");
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse<String>> deleteBook(@PathVariable Long id)
 	{
 		this.bookService.deleteBook(id);
-		return ApiResponse.okResponse("Book deleted successfully!");
+		return ApiResponse.okResponse(null, "Book deleted successfully!");
+	}
+
+	@DeleteMapping
+	public ResponseEntity<ApiResponse<String>> deleteBooks(){
+		this.bookService.deleteBooks();
+		return ApiResponse.okResponse(null, "Books deleted successfully!");
 	}
 }

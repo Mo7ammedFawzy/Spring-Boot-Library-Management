@@ -6,4 +6,9 @@ public class ResourceNotFoundException extends RuntimeException
 	{
 		super(resource.getSimpleName() + " not found with id: " + id);
 	}
+
+	public ResourceNotFoundException(Class<?> resource)
+	{
+		super(resource.getSimpleName() + "s" + " not found");
+	}
 }

@@ -1,6 +1,7 @@
 package org.library.dto;
 
 import lombok.*;
+import org.library.entity.Category;
 
 @Data
 @NoArgsConstructor
@@ -11,4 +12,5 @@ public class BookResponse
 	private String title;
 	private String description;
 	private Long availableCopies;
+	private Category category;
 }

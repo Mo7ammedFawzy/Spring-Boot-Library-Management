@@ -20,4 +20,8 @@ public class Book
 	private String description;
 	@NotNull(message = "Available copies is required")
 	private Long availableCopies;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	@NotNull
+	private Category category;
 }
