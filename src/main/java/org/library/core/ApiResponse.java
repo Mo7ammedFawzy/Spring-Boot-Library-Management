@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 public record ApiResponse<T>(boolean success, T data, String message)
 {
-	private static <T> ApiResponse<T> ok(T data)
+	public static <T> ApiResponse<T> ok(T data)
 	{
 		return new ApiResponse<>(true, data, null);
 	}

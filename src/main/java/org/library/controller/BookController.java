@@ -36,6 +36,12 @@ public class BookController
 		BookResponse book = this.bookService.getBookById(id);
 		return ApiResponse.okResponse(book);
 	}
+	@GetMapping("/categories/{categoryId}")
+	public ResponseEntity<ApiResponse<List<BookResponse>>> getBooksByCategoryId(@PathVariable Long categoryId)
+	{
+		List<BookResponse> books = this.bookService.getByCategoryId(categoryId);
+		return ApiResponse.okResponse(books);
+	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id, @RequestBody BookRequest bookRequest)

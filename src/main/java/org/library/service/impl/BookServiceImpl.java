@@ -52,7 +52,8 @@ public class BookServiceImpl implements BookService
 		book.setDescription(request.getDescription());
 		book.setAvailableCopies(request.getAvailableCopies());
 		book.setCategory(category);
-		return BookMapper.toResponse(book);
+		Book updatedBook = this.bookRepository.save(book);
+		return BookMapper.toResponse(updatedBook);
 	}
 
 	@Override
@@ -69,5 +70,13 @@ public class BookServiceImpl implements BookService
 		if (count == 0)
 			throw new ResourceNotFoundException(Book.class);
 		bookRepository.deleteAll();
+	}
+
+	@Override
+	public List<BookResponse> getByCategoryId(Long categoryId)
+	{
+		List<Book> books = this.bookRepository.findByCategoryId(categoryId);
+
+		return books.stream().map(BookMapper::toResponse).toList();
 	}
 }

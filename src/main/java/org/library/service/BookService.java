@@ -17,4 +17,6 @@ public interface BookService
 	void deleteBook(Long id);
 
 	void deleteBooks();
+
+	List<BookResponse> getByCategoryId(Long categoryId);
 }

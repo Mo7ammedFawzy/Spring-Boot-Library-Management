@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.library.core.ApiResponse;
 import org.library.dto.*;
 import org.library.service.impl.CategoryServiceImp;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +24,26 @@ public class CategoryController
 
 	@PostMapping
 	public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@RequestBody CategoryRequest request){
-		return ApiResponse.okResponse(this.categoryService.createCategory(request));
+		CategoryResponse response = this.categoryService.createCategory(request);
+		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(response));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse<String>> deleteCategory(@PathVariable Long id){
 		this.categoryService.deleteCategory(id);
 		return  ApiResponse.okResponse("Category deleted successfully!");
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<ApiResponse<CategoryResponse>> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest request)
+	{
+		CategoryResponse categoryResponse = this.categoryService.updateCategory(id, request);
+		return ApiResponse.okResponse(categoryResponse);
+	}
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<CategoryResponse>> getCategoryById(@PathVariable Long id)
+	{
+		CategoryResponse categoryResponse = this.categoryService.getCategoryById(id);
+		return ApiResponse.okResponse(categoryResponse);
 	}
 }

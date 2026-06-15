@@ -38,4 +38,20 @@ public class CategoryServiceImp implements CategoryService
 		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
 		this.categoryRepository.delete(category);
 	}
+
+	@Override
+	public CategoryResponse updateCategory(Long id, CategoryRequest request)
+	{
+		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
+		category.setName(request.getName());
+		Category updatedCategory = this.categoryRepository.save(category);
+		return CategoryMapper.toResponse(updatedCategory);
+	}
+
+	@Override
+	public CategoryResponse getCategoryById(Long id)
+	{
+		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
+		return CategoryMapper.toResponse(category);
+	}
 }
