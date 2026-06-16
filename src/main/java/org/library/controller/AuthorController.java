@@ -1,6 +1,7 @@
 package org.library.controller;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
+import lombok.*;
 import org.library.core.ApiResponse;
 import org.library.dto.*;
 import org.library.entity.Author;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/authors")
 public class AuthorController
 {
@@ -25,7 +26,7 @@ public class AuthorController
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<AuthorResponse>> createAuthor(@RequestBody AuthorRequest request)
+	public ResponseEntity<ApiResponse<AuthorResponse>> createAuthor(@Valid @RequestBody AuthorRequest request)
 	{
 		AuthorResponse response = this.authorService.createAuthor(request);
 		return ApiResponse.createdResponse(response, Author.class);

@@ -10,7 +10,7 @@ public class BookRequest
 {
 	@NotBlank
 	private String title;
-	@NotBlank
+	@Size(min = 10)
 	private String description;
 	@NotNull
 	@Min(0)

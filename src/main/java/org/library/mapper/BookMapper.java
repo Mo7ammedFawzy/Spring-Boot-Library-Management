@@ -10,7 +10,8 @@ public class BookMapper
 
 	public static BookResponse toResponse(Book book)
 	{
-		return new BookResponse(book.getId(), book.getTitle(), book.getDescription(), book.getAvailableCopies(), book.getCategory());
+		return new BookResponse(book.getId(), book.getTitle(), book.getDescription(), book.getAvailableCopies(), book.getCategory(),
+				book.getAuthors());
 	}
 
 	public static Book toEntity(BookRequest request, Category category, List<Author> authors)

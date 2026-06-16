@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class CategoryRequest
 {
-	@NotNull
 	@NotBlank
 	private String name;
 }

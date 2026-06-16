@@ -1,6 +1,6 @@
 package org.library.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
 import org.library.dto.*;
 import org.library.entity.Author;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService
 {
 

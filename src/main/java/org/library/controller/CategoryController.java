@@ -1,5 +1,6 @@
 package org.library.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.core.ApiResponse;
 import org.library.dto.*;
@@ -23,7 +24,7 @@ public class CategoryController
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@RequestBody CategoryRequest request){
+	public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@Valid @RequestBody CategoryRequest request){
 		CategoryResponse response = this.categoryService.createCategory(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(response));
 	}
@@ -35,7 +36,7 @@ public class CategoryController
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse<CategoryResponse>> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest request)
+	public ResponseEntity<ApiResponse<CategoryResponse>> updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryRequest request)
 	{
 		CategoryResponse categoryResponse = this.categoryService.updateCategory(id, request);
 		return ApiResponse.okResponse(categoryResponse);

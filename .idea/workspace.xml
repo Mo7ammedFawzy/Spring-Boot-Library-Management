@@ -4,22 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Category Crud">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/AuthorRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/AuthorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Author.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/AuthorMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/AuthorRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/AuthorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" afterDir="false" />
+    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Author">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/BookUnavailableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/UserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/CategoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/CategoryRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +42,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Exception" />
+        <option value="Record" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -74,61 +87,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="2.2646387745912266E-10" />
-      <entry key="MS500" value="0.011776053980924852" />
-      <entry key="S2" value="0.329419987933535" />
-      <entry key="S5" value="0.6413572062064116" />
-      <entry key="S10" value="0.800847804657664" />
-      <entry key="S30" value="0.9292933490472156" />
-      <entry key="S60" value="1.030826882391638" />
-      <entry key="M2" value="1.8657421593960815" />
-      <entry key="M5" value="8.259903224610323" />
-      <entry key="M10" value="20.113770821859344" />
-      <entry key="M15" value="28.503708049168452" />
-      <entry key="M30" value="41.47678418333196" />
-      <entry key="H1" value="50.53875490118917" />
-      <entry key="H2" value="56.23050883295292" />
-      <entry key="H4" value="69.09070161514795" />
-      <entry key="D1" value="284.94012344012015" />
-      <entry key="W1" value="446.38428123266016" />
+      <entry key="MS100" value="3.199202646138582E-4" />
+      <entry key="MS500" value="0.19999003208318816" />
+      <entry key="S2" value="0.6687320110771278" />
+      <entry key="S5" value="0.8528047705253884" />
+      <entry key="S10" value="0.9833837148563087" />
+      <entry key="S30" value="2.208293050916395" />
+      <entry key="S60" value="5.0062956882567775" />
+      <entry key="M2" value="10.872489820846242" />
+      <entry key="M5" value="24.127953221688013" />
+      <entry key="M10" value="35.2776766468337" />
+      <entry key="M15" value="40.7585598716026" />
+      <entry key="M30" value="48.39942634933325" />
+      <entry key="H1" value="60.55444042075243" />
+      <entry key="H2" value="87.48071019687536" />
+      <entry key="H4" value="128.97103029556445" />
+      <entry key="D1" value="380.1118846662657" />
+      <entry key="W1" value="587.0910098091754" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000079692" />
-      <entry key="S10" value="1.0000034388107204" />
-      <entry key="S30" value="1.0326020818184232" />
-      <entry key="S60" value="1.4597731267811025" />
-      <entry key="M2" value="3.532057311003751" />
-      <entry key="M5" value="12.746113666187554" />
-      <entry key="M10" value="26.922905644843354" />
-      <entry key="M15" value="36.686941210688055" />
-      <entry key="M30" value="51.7982388847932" />
-      <entry key="H1" value="62.43174442087714" />
-      <entry key="H2" value="69.14472212639234" />
-      <entry key="H4" value="82.9187830668023" />
-      <entry key="D1" value="280.9761646706913" />
-      <entry key="W1" value="421.5334128161817" />
+      <entry key="MS100" value="1.000000082570696" />
+      <entry key="MS500" value="1.0450793323017604" />
+      <entry key="S2" value="1.8549856375128297" />
+      <entry key="S5" value="2.9445953010826953" />
+      <entry key="S10" value="4.343429623427539" />
+      <entry key="S30" value="9.52831755027779" />
+      <entry key="S60" value="16.245641227289404" />
+      <entry key="M2" value="27.3582788975876" />
+      <entry key="M5" value="49.57751920011037" />
+      <entry key="M10" value="67.38397672223802" />
+      <entry key="M15" value="76.03665963351436" />
+      <entry key="M30" value="87.75375805109199" />
+      <entry key="H1" value="104.02025578868333" />
+      <entry key="H2" value="138.03979756326896" />
+      <entry key="H4" value="189.34965666570642" />
+      <entry key="D1" value="442.93580466243657" />
+      <entry key="W1" value="631.4598373354745" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.221454909638361E-4" />
-      <entry key="MS500" value="0.2057459820952274" />
-      <entry key="S2" value="0.941024387810757" />
-      <entry key="S5" value="1.4455628935533722" />
-      <entry key="S10" value="1.6935304094927457" />
-      <entry key="S30" value="1.922846487656176" />
-      <entry key="S60" value="2.464782711335442" />
-      <entry key="M2" value="5.364872691871767" />
-      <entry key="M5" value="20.939318912977566" />
-      <entry key="M10" value="46.956622644503554" />
-      <entry key="M15" value="65.11562578947252" />
-      <entry key="M30" value="93.22085124573134" />
-      <entry key="H1" value="112.9375994763779" />
-      <entry key="H2" value="125.35692867173083" />
-      <entry key="H4" value="151.99800369323657" />
-      <entry key="D1" value="565.9082676649904" />
-      <entry key="W1" value="867.9159206856498" />
+      <entry key="MS100" value="4.3339749823093326E-4" />
+      <entry key="MS500" value="0.36730328769451354" />
+      <entry key="S2" value="1.7514478608341044" />
+      <entry key="S5" value="2.9876904527209454" />
+      <entry key="S10" value="4.538922184610152" />
+      <entry key="S30" value="11.078808592382266" />
+      <entry key="S60" value="20.68415782041897" />
+      <entry key="M2" value="37.747850193887466" />
+      <entry key="M5" value="73.34976897092977" />
+      <entry key="M10" value="102.41873162573566" />
+      <entry key="M15" value="116.6122642307524" />
+      <entry key="M30" value="136.04758906715884" />
+      <entry key="H1" value="164.51261815498663" />
+      <entry key="H2" value="225.48019342782234" />
+      <entry key="H4" value="318.29347528750253" />
+      <entry key="D1" value="823.0360545392205" />
+      <entry key="W1" value="1218.5483729418552" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -177,11 +190,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.library.dto" />
+      <recent name="org.library.security" />
+      <recent name="org.library.core" />
       <recent name="org.library.mapper" />
       <recent name="org.library.repository" />
       <recent name="org.library.entity" />
-      <recent name="org.library.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\Projects\Spring-Boot-Library-Management" />
@@ -314,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781438509532</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add Author">
+      <option name="closed" value="true" />
+      <created>1781599772638</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1781599772638</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,17 +362,7 @@
     <MESSAGE value="add book crud" />
     <MESSAGE value="Add global exception handler" />
     <MESSAGE value="Add Category Crud" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Category Crud" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add Author" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Author" />
   </component>
 </project>

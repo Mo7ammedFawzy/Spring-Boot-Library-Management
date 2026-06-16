@@ -1,5 +1,6 @@
 package org.library.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.core.ApiResponse;
 import org.library.dto.*;
@@ -24,7 +25,7 @@ public class BookController
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<BookResponse>> createBook(@RequestBody BookRequest bookRequest)
+	public ResponseEntity<ApiResponse<BookResponse>> createBook(@Valid @RequestBody BookRequest bookRequest)
 	{
 		BookResponse createdBook = this.bookService.createBook(bookRequest);
 		return ApiResponse.okResponse(createdBook,"Book created successfully!");
@@ -44,7 +45,7 @@ public class BookController
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id, @RequestBody BookRequest bookRequest)
+	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id,@Valid @RequestBody BookRequest bookRequest)
 	{
 		BookResponse bookResponse = this.bookService.updateBook(id, bookRequest);
 		return ApiResponse.okResponse(bookResponse,"Book updated successfully!");
