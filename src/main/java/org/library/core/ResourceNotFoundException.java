@@ -11,4 +11,9 @@ public class ResourceNotFoundException extends RuntimeException
 	{
 		super(resource.getSimpleName() + "s" + " not found");
 	}
+
+	public ResourceNotFoundException(String message)
+	{
+		super(message);
+	}
 }

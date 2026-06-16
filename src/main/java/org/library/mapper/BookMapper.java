@@ -3,6 +3,8 @@ package org.library.mapper;
 import org.library.dto.*;
 import org.library.entity.*;
 
+import java.util.List;
+
 public class BookMapper
 {
 
@@ -11,13 +13,14 @@ public class BookMapper
 		return new BookResponse(book.getId(), book.getTitle(), book.getDescription(), book.getAvailableCopies(), book.getCategory());
 	}
 
-	public static Book toEntity(BookRequest request, Category category)
+	public static Book toEntity(BookRequest request, Category category, List<Author> authors)
 	{
 		Book book = new Book();
 		book.setTitle(request.getTitle());
 		book.setDescription(request.getDescription());
 		book.setAvailableCopies(request.getAvailableCopies());
 		book.setCategory(category);
+		book.setAuthors(authors);
 		return book;
 	}
 }

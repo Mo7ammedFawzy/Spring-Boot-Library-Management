@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Category Crud">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/AuthorRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/AuthorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/AuthorMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/AuthorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/AuthorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/repository/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,61 +74,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.9003620190852595E-24" />
-      <entry key="MS500" value="1.8359319473243665E-5" />
-      <entry key="S2" value="0.11616248731959657" />
-      <entry key="S5" value="1.006589221178965" />
-      <entry key="S10" value="2.4258737451553967" />
-      <entry key="S30" value="5.453676427472907" />
-      <entry key="S60" value="7.216494899879597" />
-      <entry key="M2" value="8.927707678017155" />
-      <entry key="M5" value="15.598090455341493" />
-      <entry key="M10" value="27.928071509488177" />
-      <entry key="M15" value="36.67863595190568" />
-      <entry key="M30" value="50.59881493116783" />
-      <entry key="H1" value="69.6122958141636" />
-      <entry key="H2" value="117.54253393107258" />
-      <entry key="H4" value="192.49742453985337" />
-      <entry key="D1" value="331.93406512537825" />
-      <entry key="W1" value="368.4327146968799" />
+      <entry key="MS100" value="2.2646387745912266E-10" />
+      <entry key="MS500" value="0.011776053980924852" />
+      <entry key="S2" value="0.329419987933535" />
+      <entry key="S5" value="0.6413572062064116" />
+      <entry key="S10" value="0.800847804657664" />
+      <entry key="S30" value="0.9292933490472156" />
+      <entry key="S60" value="1.030826882391638" />
+      <entry key="M2" value="1.8657421593960815" />
+      <entry key="M5" value="8.259903224610323" />
+      <entry key="M10" value="20.113770821859344" />
+      <entry key="M15" value="28.503708049168452" />
+      <entry key="M30" value="41.47678418333196" />
+      <entry key="H1" value="50.53875490118917" />
+      <entry key="H2" value="56.23050883295292" />
+      <entry key="H4" value="69.09070161514795" />
+      <entry key="D1" value="284.94012344012015" />
+      <entry key="W1" value="446.38428123266016" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0006716552434765" />
-      <entry key="MS500" value="1.252844526605396" />
-      <entry key="S2" value="2.0763274547169863" />
-      <entry key="S5" value="2.6858093719240417" />
-      <entry key="S10" value="3.498180145598164" />
-      <entry key="S30" value="5.919590936584545" />
-      <entry key="S60" value="7.807899485995717" />
-      <entry key="M2" value="9.993073023054581" />
-      <entry key="M5" value="18.266174298914212" />
-      <entry key="M10" value="33.438257518466266" />
-      <entry key="M15" value="44.17594275980054" />
-      <entry key="M30" value="61.18255731003658" />
-      <entry key="H1" value="82.45337761729739" />
-      <entry key="H2" value="126.06809748861" />
-      <entry key="H4" value="185.4284732058518" />
-      <entry key="D1" value="285.56711996680474" />
-      <entry key="W1" value="310.54558663342937" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000000079692" />
+      <entry key="S10" value="1.0000034388107204" />
+      <entry key="S30" value="1.0326020818184232" />
+      <entry key="S60" value="1.4597731267811025" />
+      <entry key="M2" value="3.532057311003751" />
+      <entry key="M5" value="12.746113666187554" />
+      <entry key="M10" value="26.922905644843354" />
+      <entry key="M15" value="36.686941210688055" />
+      <entry key="M30" value="51.7982388847932" />
+      <entry key="H1" value="62.43174442087714" />
+      <entry key="H2" value="69.14472212639234" />
+      <entry key="H4" value="82.9187830668023" />
+      <entry key="D1" value="280.9761646706913" />
+      <entry key="W1" value="421.5334128161817" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.013232571339788862" />
-      <entry key="MS500" value="0.4963492023928548" />
-      <entry key="S2" value="1.6127451045874872" />
-      <entry key="S5" value="3.1990260403600637" />
-      <entry key="S10" value="5.461271322116104" />
-      <entry key="S30" value="11.021085343096622" />
-      <entry key="S60" value="14.776312172117944" />
-      <entry key="M2" value="18.74694430060914" />
-      <entry key="M5" value="33.68603883953097" />
-      <entry key="M10" value="61.188445261274204" />
-      <entry key="M15" value="80.69788146690726" />
-      <entry key="M30" value="111.67466395256552" />
-      <entry key="H1" value="151.99570551913706" />
-      <entry key="H2" value="243.55880343336017" />
-      <entry key="H4" value="377.88841783234085" />
-      <entry key="D1" value="617.4916543044305" />
-      <entry key="W1" value="678.9768220938357" />
+      <entry key="MS100" value="3.221454909638361E-4" />
+      <entry key="MS500" value="0.2057459820952274" />
+      <entry key="S2" value="0.941024387810757" />
+      <entry key="S5" value="1.4455628935533722" />
+      <entry key="S10" value="1.6935304094927457" />
+      <entry key="S30" value="1.922846487656176" />
+      <entry key="S60" value="2.464782711335442" />
+      <entry key="M2" value="5.364872691871767" />
+      <entry key="M5" value="20.939318912977566" />
+      <entry key="M10" value="46.956622644503554" />
+      <entry key="M15" value="65.11562578947252" />
+      <entry key="M30" value="93.22085124573134" />
+      <entry key="H1" value="112.9375994763779" />
+      <entry key="H2" value="125.35692867173083" />
+      <entry key="H4" value="151.99800369323657" />
+      <entry key="D1" value="565.9082676649904" />
+      <entry key="W1" value="867.9159206856498" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -175,13 +180,14 @@
       <recent name="org.library.dto" />
       <recent name="org.library.mapper" />
       <recent name="org.library.repository" />
+      <recent name="org.library.entity" />
       <recent name="org.library.service" />
-      <recent name="org.library.service.impl" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\Projects\Spring-Boot-Library-Management" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.library.controller" />
       <recent name="org.library.service" />
       <recent name="org.library.core" />
     </key>
@@ -342,7 +348,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java</url>
-          <line>47</line>
+          <line>51</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

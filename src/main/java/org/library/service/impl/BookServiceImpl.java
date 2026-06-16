@@ -17,13 +17,17 @@ public class BookServiceImpl implements BookService
 {
 	private final BookRepository bookRepository;
 	private final CategoryRepository categoryRepository;
+	private final AuthorRepository authorRepository;
 
 	@Override
 	public BookResponse createBook(BookRequest request)
 	{
 		Category category = this.categoryRepository.findById(request.getCategoryId())
 				.orElseThrow(() -> new ResourceNotFoundException(Category.class, request.getCategoryId()));
-		Book entity = BookMapper.toEntity(request,category);
+		List<Author> authors = this.authorRepository.findAllById(request.getAuthorIds());
+		if (authors.size() != request.getAuthorIds().size())
+			throw new ResourceNotFoundException("One or more authors not found");
+		Book entity = BookMapper.toEntity(request, category, authors);
 		Book createdBook = this.bookRepository.save(entity);
 		return BookMapper.toResponse(createdBook);
 	}
@@ -47,11 +51,13 @@ public class BookServiceImpl implements BookService
 	{
 		Category category = this.categoryRepository.findById(request.getCategoryId())
 				.orElseThrow(() -> new ResourceNotFoundException(Category.class, request.getCategoryId()));
+		List<Author> authors = this.authorRepository.findAllById(request.getAuthorIds());
 		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class,id));
 		book.setTitle(request.getTitle());
 		book.setDescription(request.getDescription());
 		book.setAvailableCopies(request.getAvailableCopies());
 		book.setCategory(category);
+		book.setAuthors(authors);
 		Book updatedBook = this.bookRepository.save(book);
 		return BookMapper.toResponse(updatedBook);
 	}

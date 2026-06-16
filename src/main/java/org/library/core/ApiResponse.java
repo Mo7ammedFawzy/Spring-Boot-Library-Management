@@ -1,6 +1,6 @@
 package org.library.core;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
 public record ApiResponse<T>(boolean success, T data, String message)
 {
@@ -32,5 +32,16 @@ public record ApiResponse<T>(boolean success, T data, String message)
 	public static <T> ResponseEntity<ApiResponse<T>> okResponse(T data, String message)
 	{
 		return ResponseEntity.ok(ApiResponse.ok(data, message));
+	}
+
+	public static <T> ResponseEntity<ApiResponse<T>> createdResponse(T response)
+	{
+		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(response));
+	}
+
+	public static <T> ResponseEntity<ApiResponse<T>> createdResponse(T response, Class<?> className)
+	{
+		String message = className.getSimpleName() + " created successfully!";
+		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok(response, message));
 	}
 }

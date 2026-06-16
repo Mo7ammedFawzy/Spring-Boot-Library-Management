@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "books")
 @Data
@@ -24,4 +26,8 @@ public class Book
 	@JoinColumn(name = "category_id")
 	@NotNull
 	private Category category;
+	@ManyToMany
+	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	private List<Author> authors;
+
 }
