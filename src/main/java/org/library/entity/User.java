@@ -3,7 +3,7 @@ package org.library.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.library.core.Role;
+import org.library.enums.Role;
 
 @Entity
 @Data

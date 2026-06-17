@@ -4,32 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Author">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/BookUnavailableException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/core/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/UserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtAuthFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/UserServiceImpl.java" afterDir="false" />
+    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Book (controler,mapper,repository,service)">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/LibraryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/payload/ApiError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/payload/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/BookUnavailableException.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/CategoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/CategoryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthorServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/enums/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/UserResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/security/JwtAuthFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/security/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/UserServiceImpl.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,15 +36,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="41" />
+    <option name="cachedIndexableFilesCount" value="20" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Exception" />
-        <option value="Record" />
-        <option value="Interface" />
-        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -85,65 +80,6 @@
     <commands />
     <urls />
   </component>
-  <component name="NextEditCompletionFeaturesState">
-    <decayedCancelled>
-      <entry key="MS100" value="3.199202646138582E-4" />
-      <entry key="MS500" value="0.19999003208318816" />
-      <entry key="S2" value="0.6687320110771278" />
-      <entry key="S5" value="0.8528047705253884" />
-      <entry key="S10" value="0.9833837148563087" />
-      <entry key="S30" value="2.208293050916395" />
-      <entry key="S60" value="5.0062956882567775" />
-      <entry key="M2" value="10.872489820846242" />
-      <entry key="M5" value="24.127953221688013" />
-      <entry key="M10" value="35.2776766468337" />
-      <entry key="M15" value="40.7585598716026" />
-      <entry key="M30" value="48.39942634933325" />
-      <entry key="H1" value="60.55444042075243" />
-      <entry key="H2" value="87.48071019687536" />
-      <entry key="H4" value="128.97103029556445" />
-      <entry key="D1" value="380.1118846662657" />
-      <entry key="W1" value="587.0910098091754" />
-    </decayedCancelled>
-    <decayedSelected>
-      <entry key="MS100" value="1.000000082570696" />
-      <entry key="MS500" value="1.0450793323017604" />
-      <entry key="S2" value="1.8549856375128297" />
-      <entry key="S5" value="2.9445953010826953" />
-      <entry key="S10" value="4.343429623427539" />
-      <entry key="S30" value="9.52831755027779" />
-      <entry key="S60" value="16.245641227289404" />
-      <entry key="M2" value="27.3582788975876" />
-      <entry key="M5" value="49.57751920011037" />
-      <entry key="M10" value="67.38397672223802" />
-      <entry key="M15" value="76.03665963351436" />
-      <entry key="M30" value="87.75375805109199" />
-      <entry key="H1" value="104.02025578868333" />
-      <entry key="H2" value="138.03979756326896" />
-      <entry key="H4" value="189.34965666570642" />
-      <entry key="D1" value="442.93580466243657" />
-      <entry key="W1" value="631.4598373354745" />
-    </decayedSelected>
-    <decayedShown>
-      <entry key="MS100" value="4.3339749823093326E-4" />
-      <entry key="MS500" value="0.36730328769451354" />
-      <entry key="S2" value="1.7514478608341044" />
-      <entry key="S5" value="2.9876904527209454" />
-      <entry key="S10" value="4.538922184610152" />
-      <entry key="S30" value="11.078808592382266" />
-      <entry key="S60" value="20.68415782041897" />
-      <entry key="M2" value="37.747850193887466" />
-      <entry key="M5" value="73.34976897092977" />
-      <entry key="M10" value="102.41873162573566" />
-      <entry key="M15" value="116.6122642307524" />
-      <entry key="M30" value="136.04758906715884" />
-      <entry key="H1" value="164.51261815498663" />
-      <entry key="H2" value="225.48019342782234" />
-      <entry key="H4" value="318.29347528750253" />
-      <entry key="D1" value="823.0360545392205" />
-      <entry key="W1" value="1218.5483729418552" />
-    </decayedShown>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -169,7 +105,6 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;ShowUsagesActions.previewPropertyKey&quot;: &quot;true&quot;,
     &quot;Spring Boot.LibraryApplication.executor&quot;: &quot;Debug&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;fawzy&quot;,
@@ -189,20 +124,8 @@
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.library.security" />
-      <recent name="org.library.core" />
-      <recent name="org.library.mapper" />
-      <recent name="org.library.repository" />
-      <recent name="org.library.entity" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\Projects\Spring-Boot-Library-Management" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.library.controller" />
-      <recent name="org.library.service" />
-      <recent name="org.library.core" />
     </key>
   </component>
   <component name="RunManager">
@@ -237,14 +160,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="" />
@@ -255,13 +170,6 @@
       <workItem from="1778275126281" duration="22000" />
       <workItem from="1778328995885" duration="11164000" />
       <workItem from="1779289852022" duration="4078000" />
-      <workItem from="1780913352857" duration="9624000" />
-      <workItem from="1781075764127" duration="305000" />
-      <workItem from="1781076907183" duration="2186000" />
-      <workItem from="1781413590529" duration="572000" />
-      <workItem from="1781414267084" duration="666000" />
-      <workItem from="1781416420806" duration="11738000" />
-      <workItem from="1781439457541" duration="5054000" />
     </task>
     <task id="LOCAL-00001" summary="Add files">
       <option name="closed" value="true" />
@@ -295,47 +203,7 @@
       <option name="project" value="LOCAL" />
       <updated>1779293540778</updated>
     </task>
-    <task id="LOCAL-00005" summary="Refactor ApiResponse">
-      <option name="closed" value="true" />
-      <created>1780814569464</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1780814569464</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add book crud">
-      <option name="closed" value="true" />
-      <created>1781017822294</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1781017822294</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Add global exception handler">
-      <option name="closed" value="true" />
-      <created>1781420002172</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1781420002172</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Add Category Crud">
-      <option name="closed" value="true" />
-      <created>1781438509532</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1781438509532</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Add Author">
-      <option name="closed" value="true" />
-      <created>1781599772638</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1781599772638</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,11 +226,6 @@
     <MESSAGE value="Add ApiResponse" />
     <MESSAGE value="Add (ApiResponse + Test Route)" />
     <MESSAGE value="Add Book (controler,mapper,repository,service)" />
-    <MESSAGE value="Refactor ApiResponse" />
-    <MESSAGE value="add book crud" />
-    <MESSAGE value="Add global exception handler" />
-    <MESSAGE value="Add Category Crud" />
-    <MESSAGE value="Add Author" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Author" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Book (controler,mapper,repository,service)" />
   </component>
 </project>

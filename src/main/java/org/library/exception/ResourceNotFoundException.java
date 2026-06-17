@@ -1,4 +1,4 @@
-package org.library.core;
+package org.library.exception;
 
 public class ResourceNotFoundException extends RuntimeException
 {

@@ -1,5 +1,6 @@
-package org.library.core;
+package org.library.exception;
 
+import org.library.payload.ApiError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;

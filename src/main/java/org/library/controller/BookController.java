@@ -2,7 +2,7 @@ package org.library.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.library.core.ApiResponse;
+import org.library.payload.ApiResponse;
 import org.library.dto.*;
 import org.library.service.impl.BookServiceImpl;
 import org.springframework.http.ResponseEntity;

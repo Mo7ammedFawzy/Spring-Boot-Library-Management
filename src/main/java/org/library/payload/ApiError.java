@@ -1,4 +1,4 @@
-package org.library.core;
+package org.library.payload;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
