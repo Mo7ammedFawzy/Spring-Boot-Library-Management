@@ -2,7 +2,7 @@ package org.library.controller;
 
 import jakarta.validation.Valid;
 import lombok.*;
-import org.library.core.ApiResponse;
+import org.library.payload.ApiResponse;
 import org.library.dto.*;
 import org.library.entity.Author;
 import org.library.service.impl.AuthorServiceImpl;
