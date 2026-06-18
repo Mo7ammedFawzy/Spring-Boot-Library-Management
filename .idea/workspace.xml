@@ -4,31 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Add Book (controler,mapper,repository,service)">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Refactor directories">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/AuthResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/AuthServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/LibraryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/payload/ApiError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/payload/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/BookUnavailableException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/core/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/core/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/enums/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/UserResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/dto/BookResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Category.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/security/JwtAuthFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/security/JwtUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/service/impl/CategoryServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/service/impl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/BookMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -60,22 +49,22 @@
     &quot;assignee&quot;: &quot;Mo7ammedFawzy&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Mo7ammedFawzy/Spring-Boot-Library-Management.git&quot;,
-    &quot;accountId&quot;: &quot;697bba34-1906-4000-867b-d925293fe391&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Mo7ammedFawzy/Spring-Boot-Library-Management.git",
+    "accountId": "b5a4b276-8c76-4c43-abda-8b884d7524c4"
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;Mo7ammedFawzy&quot;,
-    &quot;repository&quot;: &quot;Spring-Boot-Library-Management&quot;
+    "owner": "Mo7ammedFawzy",
+    "repository": "Spring-Boot-Library-Management"
   }
-}</component>
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -124,6 +113,11 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.library.repository" />
+      <recent name="org.library.service.impl" />
+      <recent name="org.library.dto" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\Projects\Spring-Boot-Library-Management" />
     </key>
@@ -170,6 +164,7 @@
       <workItem from="1778275126281" duration="22000" />
       <workItem from="1778328995885" duration="11164000" />
       <workItem from="1779289852022" duration="4078000" />
+      <workItem from="1781781001098" duration="83000" />
     </task>
     <task id="LOCAL-00001" summary="Add files">
       <option name="closed" value="true" />
@@ -203,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779293540778</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Refactor directories">
+      <option name="closed" value="true" />
+      <created>1781724627807</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781724627807</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +229,7 @@
     <MESSAGE value="Add ApiResponse" />
     <MESSAGE value="Add (ApiResponse + Test Route)" />
     <MESSAGE value="Add Book (controler,mapper,repository,service)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Book (controler,mapper,repository,service)" />
+    <MESSAGE value="Refactor directories" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor directories" />
   </component>
 </project>

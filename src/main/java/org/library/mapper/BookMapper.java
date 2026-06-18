@@ -16,12 +16,8 @@ public class BookMapper
 
 	public static Book toEntity(BookRequest request, Category category, List<Author> authors)
 	{
-		Book book = new Book();
-		book.setTitle(request.getTitle());
-		book.setDescription(request.getDescription());
-		book.setAvailableCopies(request.getAvailableCopies());
-		book.setCategory(category);
-		book.setAuthors(authors);
-		return book;
+		return Book.builder().title(request.getTitle()).description(request.getDescription()).availableCopies(request.getAvailableCopies())
+				.category(category).authors(authors).build();
+
 	}
 }
