@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Rename tables">
+    <list default="true" id="8875b8d2-0968-476b-8cdf-9e6d9685eb02" name="Changes" comment="Fix">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/security/JwtUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/controller/AuthorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -155,7 +160,7 @@
       <workItem from="1778275126281" duration="22000" />
       <workItem from="1778328995885" duration="11164000" />
       <workItem from="1779289852022" duration="4078000" />
-      <workItem from="1781781001098" duration="779000" />
+      <workItem from="1781781001098" duration="6390000" />
     </task>
     <task id="LOCAL-00001" summary="Add files">
       <option name="closed" value="true" />
@@ -205,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781781384356</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1781782010740</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1781782010740</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +243,18 @@
     <MESSAGE value="Add Book (controler,mapper,repository,service)" />
     <MESSAGE value="Refactor directories" />
     <MESSAGE value="Rename tables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename tables" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/7.0.5/spring-security-core-7.0.5-sources.jar!/org/springframework/security/core/GrantedAuthority.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

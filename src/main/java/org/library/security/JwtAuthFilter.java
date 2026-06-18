@@ -1,0 +1,45 @@
+package org.library.security;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
+public class JwtAuthFilter extends OncePerRequestFilter
+{
+	private JwtUtil jwtUtil;
+	private UserDetailsService userDetailsService;
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException
+	{
+		String authHeader = request.getHeader("Authorization");
+		String bearer = "Bearer ";
+		if (authHeader == null || !authHeader.startsWith(bearer))
+		{
+			filterChain.doFilter(request, response);
+			return;
+		}
+		String token = authHeader.substring(bearer.length());
+		String email = jwtUtil.extractUserName(token);
+		if (email != null && SecurityContextHolder.getContext().getAuthentication() == null)
+		{
+			UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+			if (jwtUtil.isTokenValid(token, userDetails))
+			{
+				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+						userDetails.getAuthorities());
+				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				SecurityContextHolder.getContext().setAuthentication(authToken);
+			}
+
+		}
+		filterChain.doFilter(request, response);
+	}
+}
