@@ -354,6 +354,56 @@
   ```
 - [ ] Add `GET /api/books/search?keyword=java` endpoint
 
+
+---
+
+# Phase 9 - Notifications, Recycle Bin & Audit Log
+
+Duration: 4-6 Days
+
+## Goals
+
+* Reinforce Observer pattern with real notification events
+* Implement soft-delete (recycle bin) instead of hard deletes
+* Track system activity via an audit log
+
+## Tasks
+
+### Notifications
+* [ ] Define notification events (BookBorrowed, BookReturned, BookOverdue, BookRestored)
+* [ ] Publish events via ApplicationEventPublisher from BorrowService / recycle bin restore
+* [ ] Create NotificationListener(s) with @EventListener / @Async
+* [ ] Create Notification entity + repository (store in-app notifications)
+* [ ] Add GET /api/notifications (list current user's notifications)
+* [ ] Add PATCH /api/notifications/{id}/read
+* [ ] (Optional) Add a NotificationChannel Strategy (IN_APP, EMAIL) so channels are swappable
+
+### Recycle Bin (Soft Delete)
+* [ ] Add `deletedAt` (and `deletedBy`) fields to Book/Category/Author base entity
+* [ ] Use @SQLDelete + @Where(clause = "deleted_at IS NULL") on entities
+* [ ] Update repositories/services so normal queries exclude soft-deleted rows
+* [ ] Add GET /api/recycle-bin (list soft-deleted items by type)
+* [ ] Add POST /api/recycle-bin/{type}/{id}/restore
+* [ ] Add DELETE /api/recycle-bin/{type}/{id} (permanent delete)
+* [ ] (Optional) Wrap restore/delete as Command objects for undo support
+
+### Audit Log
+* [ ] Create AuditLog entity (actorId, action, entityType, entityId, timestamp, details)
+* [ ] Create AuditService with a single logAction(...) method
+* [ ] Hook AuditService into existing events (borrow, return, delete, restore) via the same Observer listeners
+* [ ] Add GET /api/audit-log (ADMIN only, paginated)
+* [ ] (Optional) Explore AOP (@Around advice) as an alternative to manual calls, and compare tradeoffs vs the event-based approach
+
+## Topics To Learn
+
+* ApplicationEventPublisher / @EventListener / @Async
+* Hibernate @SQLDelete and @Where
+* Soft delete vs hard delete tradeoffs
+* Command pattern (optional, for undo)
+* Intro to Spring AOP (optional, for audit log)
+
+---
+
 ### Swagger / OpenAPI
 - [ ] Add `springdoc-openapi-starter-webmvc-ui` dependency to `pom.xml`
 - [ ] Run app and visit `http://localhost:8080/swagger-ui.html`

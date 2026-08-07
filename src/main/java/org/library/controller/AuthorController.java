@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/authors")
 public class AuthorController
 {
-	private AuthorServiceImpl authorService;
+	private final AuthorServiceImpl authorService;
 
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<AuthorResponse>>> getAllAuthors()

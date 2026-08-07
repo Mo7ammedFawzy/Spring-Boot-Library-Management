@@ -2,7 +2,7 @@ package org.library.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 import org.library.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,9 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 @Data
-//@Builder
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails
 {
 	@Id
