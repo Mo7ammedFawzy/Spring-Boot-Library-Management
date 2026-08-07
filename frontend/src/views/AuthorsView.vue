@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted,useTemplateRef, reactive, ref } from 'vue'
 import Modal from '../components/Modal.vue'
 import { authorApi } from '../services/authors'
 import { getErrorMessage } from '../services/http'
@@ -11,6 +11,7 @@ const error = ref('')
 
 const modalOpen = ref(false)
 const submitting = ref(false)
+const authorNameRef = useTemplateRef<HTMLInputElement>("authorNameRef");
 const formError = ref('')
 const form = reactive({ name: '' })
 
@@ -33,6 +34,7 @@ function openModal() {
   form.name = ''
   formError.value = ''
   modalOpen.value = true
+  authorNameRef.value?.focus()
 }
 
 async function submitForm() {
@@ -107,6 +109,7 @@ onMounted(loadAuthors)
           <label class="mb-1.5 block text-sm font-medium text-gray-700" for="author-name">Name</label>
           <input
             id="author-name"
+            ref="authorNameRef"
             v-model.trim="form.name"
             type="text"
             required
