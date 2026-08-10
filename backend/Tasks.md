@@ -32,7 +32,7 @@
 - [ ] Open MySQL Workbench
 - [ ] Create a new database: `CREATE DATABASE library_db;`
 - [ ] Create a MySQL user or use root for development
-- [ ] Open `src/main/resources/application.properties`
+- [ ] Open `../src/main/resources/application.properties`
 - [ ] Add the following configuration:
   ```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/library_db
