@@ -58,7 +58,7 @@ When implementing from a Stitch, Figma, screenshot, or other design reference:
 
 - Treat the reference as the visual target; match its layout, spacing, hierarchy, typography, and visual appearance using the existing project UI system.
 - Do not sacrifice the reference design just because a default component looks different.
-- When a named reference is provided, use it directly — do not enumerate unrelated Stitch projects/screens, fetch large project listings, or research unrelated component APIs unless necessary.
+- When a named reference is provided, use it directly — do not enumerate unrelated Stitch projects/screens, fetch large project listings, or research unrelated component APIs unless necessary. If locating a named screen requires listing projects/screens first, filter or grep the result for the given title instead of reading the full listing.
 - If exact colors/spacing aren't available as tokens, use your best-guess values once rather than iterating on them by inspection.
 
 ## Verification
