@@ -16,6 +16,12 @@ const router = createRouter({
   history: createWebHistory()
 })
 
+router.beforeEach((to) => {
+  if (to.path === '/') {
+    return { path: '/dashboard' }
+  }
+})
+
 app.use(head)
 app.use(router)
 app.use(ui)

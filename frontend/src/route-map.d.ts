@@ -38,6 +38,55 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/authors': RouteRecordInfo<
+      '/authors',
+      '/authors',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/books': RouteRecordInfo<
+      '/books',
+      '/books',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/borrowings': RouteRecordInfo<
+      '/borrowings',
+      '/borrowings',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/categories': RouteRecordInfo<
+      '/categories',
+      '/categories',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/dashboard': RouteRecordInfo<
+      '/dashboard',
+      '/dashboard',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/members': RouteRecordInfo<
+      '/members',
+      '/members',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/settings': RouteRecordInfo<
+      '/settings',
+      '/settings',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -54,6 +103,62 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/authors.vue': {
+      routes:
+        | '/authors'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/books.vue': {
+      routes:
+        | '/books'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/borrowings.vue': {
+      routes:
+        | '/borrowings'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/categories.vue': {
+      routes:
+        | '/categories'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/dashboard.vue': {
+      routes:
+        | '/dashboard'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/members.vue': {
+      routes:
+        | '/members'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/settings.vue': {
+      routes:
+        | '/settings'
       views:
         | never
       pathParamNames:

@@ -11,10 +11,14 @@ export default defineConfig({
     }),
     vue(),
     ui({
+      colorMode: false,
       ui: {
         colors: {
-          primary: 'green',
-          neutral: 'zinc'
+          primary: 'brand',
+          secondary: 'teal',
+          success: 'green',
+          error: 'red',
+          neutral: 'stone'
         }
       }
     })
