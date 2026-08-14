@@ -51,6 +51,7 @@ Run commands from `frontend/`.
 ## UI
 
 - Nuxt UI is the primary UI component library. Prefer existing project components first, then Nuxt UI, then AG Grid for data-heavy tables/CRUD grids. Only create a custom component when none of those can reasonably satisfy the requirement — do not recreate functionality Nuxt UI or AG Grid already provides.
+- **Pagination defaults to AG Grid:** use AG Grid's built-in pagination (`pagination: true`, `paginationPageSize`, etc.) for data grids. Do not build pagination controls from Nuxt UI components unless the design explicitly requires it.
 - **Overriding Nuxt UI classes:** the `ui` prop appends to the theme's classes rather than replacing them, so any conflicting utility needs Tailwind's `!` prefix (e.g. `ui="{ base: '!px-4 !py-3' }"`). Don't reason about merge order — just add `!` to what you're overriding and move on.
 
 ## Design References
