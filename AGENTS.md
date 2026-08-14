@@ -43,6 +43,7 @@ Run commands from `frontend/`.
 - Main commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`.
 - File-based routes are generated from `src/pages/`.
 - Nuxt UI components are auto-imported; do not import them manually.
+- Prefer existing component usage already present in the codebase. Do not research or inspect Nuxt UI documentation unless the existing implementation cannot satisfy the requested change.
 - Use 2-space indentation.
 - Generated Nuxt UI/type files are created by dev/build and should not be manually edited.
 - If Nuxt UI types are missing, run `pnpm dev` or `pnpm build` before `pnpm typecheck`.
@@ -60,6 +61,14 @@ When implementing from a Stitch, Figma, screenshot, or other design reference:
 - Do not sacrifice the reference design just because a default component looks different.
 - When a named reference is provided, use it directly — do not enumerate unrelated Stitch projects/screens, fetch large project listings, or research unrelated component APIs unless necessary. If locating a named screen requires listing projects/screens first, filter or grep the result for the given title instead of reading the full listing.
 - If exact colors/spacing aren't available as tokens, use your best-guess values once rather than iterating on them by inspection.
+
+### Google Stitch
+
+- Project: `Workstation Library Manager`
+- Project ID: `6496321036061345431`
+- Use this project for all Athenaeum UI/design tasks.
+- When a Stitch screen is referenced, access it directly from this project.
+- Do not enumerate or search unrelated Stitch projects.
 
 ## Verification
 
