@@ -13,8 +13,6 @@ Library Management System with two independent apps:
 - Do not modify unrelated files, over-engineer, refactor unnecessarily, or introduce new architecture unless asked.
 - Avoid unnecessary sub-agents and broad repository exploration when the relevant files are already known.
 - Escalate to deeper investigation and planning only when the task is genuinely complex, ambiguous, or blocked.
-- Prefer `grep`/`glob` to locate the relevant method, endpoint, or component before reading a full file. Avoid reading entire controllers, services, or Vue pages when only one function or section is relevant.
-- Never start, stop, or restart the backend (`spring-boot:run`) or frontend (`pnpm dev`) dev server processes, for any reason — including to "pick up" code changes, to test a fix, or because a running instance looks stale. Assume both are already running and managed by the user. If a running instance appears out of date or needs restarting, tell the user and let them do it.
 
 ## Backend
 
@@ -81,8 +79,6 @@ After implementation:
 2. For UI changes, perform one focused browser verification when practical.
 3. Verify the changed flow rather than unrelated features.
 4. Fix errors caused by the change, then stop — don't repeatedly re-test working, unrelated functionality.
-5. Verify via lint/build/typecheck/compile only (`mvnw compile`, `pnpm build`, `pnpm typecheck`). Do not start, stop, or restart a dev server to smoke-test an endpoint or page — see the server-process rule under Working Style.
-6. If live verification against a running server is genuinely necessary, stop and ask the user to confirm the server is running and up to date, rather than starting or restarting it yourself.
 
 ## Documentation
 
