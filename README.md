@@ -25,6 +25,7 @@ Athenaeum lets librarians register users, manage books, authors and categories, 
   - App shell with collapsible sidebar, global search, notifications and a **dark / light mode** toggle
   - Data grids built on **AG Grid** with quick search, column filters, and built-in pagination
   - Dedicated pages: Dashboard, Books, Members, Borrowings, Authors, Categories, Settings, Profile, and Change Password
+  - **Offline fallback** — when the backend is unreachable, the app transparently falls back to in-memory mock data so the UI stays browsable
 
 ## 🖼️ Screenshots
 

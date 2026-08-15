@@ -39,6 +39,17 @@ export class ApiError extends Error {
   }
 }
 
+export class NetworkError extends Error {
+  constructor() {
+    super('Unable to reach the server.')
+    this.name = 'NetworkError'
+  }
+}
+
+export function isBackendUnavailable(error: unknown): boolean {
+  return error instanceof NetworkError || (error instanceof ApiError && error.status >= 500)
+}
+
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -49,7 +60,12 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers.Authorization = `Bearer ${token}`
   }
 
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers })
+  let res: Response
+  try {
+    res = await fetch(`${API_BASE}${path}`, { ...options, headers })
+  } catch {
+    throw new NetworkError()
+  }
 
   let body: unknown = null
   const text = await res.text()

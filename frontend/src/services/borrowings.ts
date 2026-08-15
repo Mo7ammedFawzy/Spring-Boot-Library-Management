@@ -1,4 +1,5 @@
-import { api } from './api'
+import { api, isBackendUnavailable } from './api'
+import * as mock from './mock'
 import type { Book } from './books'
 
 export interface BorrowingUser {
@@ -69,11 +70,21 @@ export function formatDate(dateStr: string | null): string {
 }
 
 export async function fetchBorrowings(): Promise<Borrowing[]> {
-  const list = await api.get<BorrowResponseDto[]>('/borrow')
-  return list.map(toBorrowing)
+  try {
+    const list = await api.get<BorrowResponseDto[]>('/borrow')
+    return list.map(toBorrowing)
+  } catch (error) {
+    if (isBackendUnavailable(error)) return mock.fetchBorrowings()
+    throw error
+  }
 }
 
 export async function borrowBook(bookId: number): Promise<Borrowing> {
-  const dto = await api.post<BorrowResponseDto>(`/borrow/${bookId}`, undefined)
-  return toBorrowing(dto)
+  try {
+    const dto = await api.post<BorrowResponseDto>(`/borrow/${bookId}`, undefined)
+    return toBorrowing(dto)
+  } catch (error) {
+    if (isBackendUnavailable(error)) return mock.borrowBook(bookId)
+    throw error
+  }
 }
