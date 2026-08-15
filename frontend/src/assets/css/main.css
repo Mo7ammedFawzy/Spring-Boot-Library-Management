@@ -23,6 +23,7 @@
 
 :root {
   --ui-nav-active: #fceee8;
+  --ui-bg-card: #ffffff;
 
   --ui-bg: #fbf9f8;
   --ui-bg-elevated: #efedec;
@@ -39,4 +40,23 @@
   --ui-text-inverted: #ffffff;
 
   --ui-header-height: 3.5rem;
+}
+
+.dark {
+  --ui-nav-active: #3a2118;
+  --ui-bg-card: #292524;
+
+  --ui-bg: #1c1917;
+  --ui-bg-elevated: #292524;
+  --ui-bg-accented: #44403c;
+
+  --ui-border: #3a3532;
+  --ui-border-muted: #292524;
+  --ui-border-accented: #4a4440;
+
+  --ui-text: #e7e5e4;
+  --ui-text-dimmed: #78716c;
+  --ui-text-muted: #a8a29e;
+  --ui-text-highlighted: #faf9f7;
+  --ui-text-inverted: #1c1917;
 }

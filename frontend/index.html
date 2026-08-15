@@ -15,14 +15,14 @@
   <meta property="og:description" content="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.">
   <meta property="og:image" content="https://ui.nuxt.com/assets/templates/vue/starter-light.png">
   <meta name="twitter:card" content="summary_large_image">
-  <style>html { background-color: #ffffff } html.dark { background-color: #18181b }</style>
+  <style>html { background-color: #ffffff } html.dark { background-color: #1c1917 }</style>
   <script>
     (function () {
       var mode = localStorage.getItem('vueuse-color-scheme') || 'auto'
       var dark = mode === 'dark' || (mode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
       if (dark) {
         document.documentElement.classList.add('dark')
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18181b')
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1c1917')
       }
     })()
   </script>

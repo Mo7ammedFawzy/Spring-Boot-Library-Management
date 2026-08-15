@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useLocalStorage } from '@vueuse/core'
+import { useColorMode, useLocalStorage } from '@vueuse/core'
 import type { DropdownMenuItem } from '@nuxt/ui'
 import { logout } from './services/auth'
 
@@ -9,6 +9,24 @@ const route = useRoute()
 const router = useRouter()
 
 const isAuthPage = computed(() => ['/login', '/register'].includes(route.path))
+
+const colorMode = useColorMode()
+
+const colorModeOptions = [
+  { value: 'light', icon: 'i-lucide-sun', label: 'Light' },
+  { value: 'dark', icon: 'i-lucide-moon', label: 'Dark' },
+  { value: 'auto', icon: 'i-lucide-monitor', label: 'System' }
+] as const
+
+const colorModeIndex = computed(() =>
+  Math.max(0, colorModeOptions.findIndex((option) => option.value === colorMode.store.value))
+)
+
+const colorModeIcon = computed(() => colorModeOptions[colorModeIndex.value].icon)
+
+function cycleColorMode() {
+  colorMode.store.value = colorModeOptions[(colorModeIndex.value + 1) % colorModeOptions.length].value
+}
 
 const sidebarOpen = useLocalStorage('sidebar-open', true)
 
@@ -82,11 +100,11 @@ function handleLogout() {
 <template>
   <Suspense>
     <UApp>
-      <div v-if="isAuthPage" class="min-h-svh w-full bg-[#fbf9f8] text-[#1b1c1b]">
+      <div v-if="isAuthPage" class="min-h-svh w-full bg-(--ui-bg) text-default">
         <RouterView />
       </div>
 
-      <div v-else class="flex h-svh overflow-hidden bg-white">
+      <div v-else class="flex h-svh overflow-hidden bg-(--ui-bg)">
         <USidebar
           v-model:open="sidebarOpen"
           collapsible="icon"
@@ -169,8 +187,8 @@ function handleLogout() {
                           ? 'rounded-lg px-3 py-2'
                           : 'size-9 justify-center rounded-full',
                         item.active
-                          ? 'bg-[#f9ebe4] text-primary'
-                          : 'text-muted hover:bg-[#f5f3f2] hover:text-highlighted'
+                          ? 'bg-(--ui-nav-active) text-primary'
+                          : 'text-muted hover:bg-(--ui-bg-accented) hover:text-highlighted'
                       ]"
                       :title="state === 'collapsed' ? item.label : undefined"
                     >
@@ -203,7 +221,7 @@ function handleLogout() {
         </USidebar>
 
         <div class="flex min-w-0 flex-1 flex-col bg-(--ui-bg)">
-          <UHeader :ui="{ root: '!h-12 border-b border-(--ui-border) bg-white' }">
+          <UHeader :ui="{ root: '!h-12 border-b border-(--ui-border) bg-(--ui-bg-card)' }">
             <template #left>
               <div class="relative hidden w-full max-w-md md:block">
                 <UIcon
@@ -213,9 +231,9 @@ function handleLogout() {
                 <input
                   type="text"
                   placeholder="Search anything..."
-                  class="h-8 w-full rounded-lg border border-(--ui-border) bg-white pl-9 pr-14 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
+                  class="h-8 w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) pl-9 pr-14 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
                 >
-                <span class="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-(--ui-border) bg-[#f5f3f2] px-1.5 py-0.5 text-[10px] font-medium text-muted">
+                <span class="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-(--ui-border) bg-(--ui-bg-accented) px-1.5 py-0.5 text-[10px] font-medium text-muted">
                   Ctrl K
                 </span>
               </div>
@@ -230,10 +248,11 @@ function handleLogout() {
                   aria-label="Notifications"
                 />
                 <UButton
-                  icon="i-lucide-sun"
+                  :icon="colorModeIcon"
                   color="neutral"
                   variant="ghost"
-                  aria-label="Light mode"
+                  aria-label="Toggle color mode"
+                  @click="cycleColorMode"
                 />
 
                 <UDropdownMenu

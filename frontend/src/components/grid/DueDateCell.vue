@@ -23,7 +23,7 @@ const subtext = computed(() => {
     <p
       v-if="subtext"
       class="text-xs"
-      :class="status === 'Overdue' ? 'text-error' : 'text-[#B7791F]'"
+      :class="status === 'Overdue' ? 'text-error' : 'text-amber-600 dark:text-amber-400'"
     >
       {{ subtext }}
     </p>

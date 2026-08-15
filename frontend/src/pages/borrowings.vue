@@ -219,16 +219,16 @@ function openDetail(borrowing: Borrowing) {
 }
 
 const toolbarUi = {
-  base: '!h-[38px] !rounded-lg !bg-white !text-sm !ring-(--ui-border) shadow-sm focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
+  base: '!h-[38px] !rounded-lg !bg-(--ui-bg-card) !text-sm !ring-(--ui-border) shadow-sm focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 
 const fieldUi = {
-  base: '!rounded-lg !bg-white !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
+  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 
 const modalUi = {
   overlay: '!bg-black/20 backdrop-blur-sm',
-  content: '!max-w-lg !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+  content: '!max-w-lg !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
 }
 
 const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(detail.value) : 'Borrowed'))
@@ -262,7 +262,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
 
     <div
       v-if="loadError"
-      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
     >
       <UIcon
         name="i-lucide-alert-circle"
@@ -272,8 +272,8 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
     </div>
 
     <div class="hidden mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-(--ui-border)">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#E8F5E9] text-[#2E7D32]">
+      <div class="flex items-center gap-4 rounded-xl bg-(--ui-bg-card) p-4 shadow-sm ring-1 ring-(--ui-border)">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-400">
           <UIcon
             name="i-lucide-book-marked"
             class="size-5"
@@ -292,8 +292,8 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
         </div>
       </div>
 
-      <div class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-(--ui-border)">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#FFF3E0] text-[#B7791F]">
+      <div class="flex items-center gap-4 rounded-xl bg-(--ui-bg-card) p-4 shadow-sm ring-1 ring-(--ui-border)">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-400">
           <UIcon
             name="i-lucide-hourglass"
             class="size-5"
@@ -312,8 +312,8 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
         </div>
       </div>
 
-      <div class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-(--ui-border)">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#E3F2FD] text-[#1565C0]">
+      <div class="flex items-center gap-4 rounded-xl bg-(--ui-bg-card) p-4 shadow-sm ring-1 ring-(--ui-border)">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400">
           <UIcon
             name="i-lucide-calendar-days"
             class="size-5"
@@ -332,8 +332,8 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
         </div>
       </div>
 
-      <div class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-(--ui-border)">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#ffdad6] text-[#C0392B]">
+      <div class="flex items-center gap-4 rounded-xl bg-(--ui-bg-card) p-4 shadow-sm ring-1 ring-(--ui-border)">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-400">
           <UIcon
             name="i-lucide-triangle-alert"
             class="size-5"
@@ -353,7 +353,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
       </div>
     </div>
 
-    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-(--ui-border)">
+    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-(--ui-bg-card) shadow-sm ring-1 ring-(--ui-border)">
       <div class="flex flex-col gap-2 border-b border-(--ui-border) p-2 lg:flex-row lg:items-end lg:overflow-x-auto">
         <div class="relative w-full lg:w-auto lg:min-w-[220px] lg:flex-1">
           <UIcon
@@ -364,7 +364,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
             v-model="search"
             type="text"
             placeholder="Search by book title or member name..."
-            class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-white pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
+            class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
           >
         </div>
 
@@ -384,7 +384,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
           <UPopover>
             <button
               type="button"
-              class="flex h-[38px] w-full items-center justify-between gap-2 rounded-lg border border-(--ui-border) bg-white px-3 text-sm shadow-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary lg:w-64"
+              class="flex h-[38px] w-full items-center justify-between gap-2 rounded-lg border border-(--ui-border) bg-(--ui-bg-card) px-3 text-sm shadow-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary lg:w-64"
             >
               <span
                 class="truncate"
@@ -412,7 +412,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
             color="neutral"
             variant="outline"
             icon="i-lucide-filter"
-            class="!h-[38px] !rounded-lg !bg-white !px-4 shadow-sm"
+            class="!h-[38px] !rounded-lg !bg-(--ui-bg-card) !px-4 shadow-sm"
           >
             Filters
           </UButton>
@@ -466,7 +466,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f5f3f2]">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--ui-bg-accented)">
                 <UIcon
                   name="i-lucide-book-open"
                   class="text-lg text-highlighted"
@@ -494,7 +494,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
           <div class="grow overflow-y-auto py-2 px-3">
             <div
               v-if="formError"
-              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
             >
               <UIcon
                 name="i-lucide-alert-circle"
@@ -531,12 +531,12 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
             </UForm>
           </div>
 
-          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-[#f5f3f2] px-4 py-3">
+          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-(--ui-bg-accented) px-4 py-3">
             <UButton
               color="neutral"
               variant="outline"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-[#f5f3f2]"
+              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-(--ui-bg-accented)"
               @click="close"
             >
               Cancel
@@ -546,7 +546,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
               variant="solid"
               icon="i-lucide-book-open"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 hover:!bg-brand-600"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
               @click="borrowForm?.submit()"
             >
@@ -561,14 +561,14 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
       v-model:open="detailOpen"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
-        content: '!max-w-lg !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+        content: '!max-w-lg !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
       }"
     >
       <template #content>
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f5f3f2]">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--ui-bg-accented)">
                 <UIcon
                   name="i-lucide-book-open"
                   class="text-lg text-highlighted"
@@ -600,7 +600,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
             <div class="flex flex-col gap-4">
               <div class="flex items-start justify-between gap-4">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#f5f3f2]">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--ui-bg-accented)">
                     <UIcon
                       name="i-lucide-book-marked"
                       class="size-4 text-highlighted"
@@ -635,7 +635,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
               </div>
 
               <div class="grid grid-cols-3 gap-3">
-                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-[#f5f3f2] p-3">
+                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-(--ui-bg-accented) p-3">
                   <p class="text-[10px] font-semibold uppercase tracking-wide text-muted">
                     Borrow Date
                   </p>
@@ -643,7 +643,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
                     {{ formatDate(detail.borrowDate) }}
                   </p>
                 </div>
-                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-[#f5f3f2] p-3">
+                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-(--ui-bg-accented) p-3">
                   <p class="text-[10px] font-semibold uppercase tracking-wide text-muted">
                     Due Date
                   </p>
@@ -651,7 +651,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
                     {{ formatDate(detail.dueDate) }}
                   </p>
                 </div>
-                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-[#f5f3f2] p-3">
+                <div class="flex flex-col gap-1 rounded-lg border border-(--ui-border) bg-(--ui-bg-accented) p-3">
                   <p class="text-[10px] font-semibold uppercase tracking-wide text-muted">
                     Return Date
                   </p>

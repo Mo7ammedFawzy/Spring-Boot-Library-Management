@@ -31,7 +31,7 @@ function handleGoogleSignIn() {}
 </script>
 
 <template>
-  <div class="relative h-screen w-full bg-[#fbf9f8] flex flex-col justify-between p-4 sm:p-6 lg:px-12 lg:py-6 overflow-hidden selection:bg-[#f7d7c9] selection:text-[#7a2a00]">
+  <div class="relative h-screen w-full bg-(--ui-bg) flex flex-col justify-between p-4 sm:p-6 lg:px-12 lg:py-6 overflow-hidden selection:bg-primary-200 selection:text-primary-800">
     <!-- Realistic Watercolor Background Illustration -->
     <div
       class="pointer-events-none absolute inset-0 select-none overflow-hidden"
@@ -43,7 +43,7 @@ function handleGoogleSignIn() {}
         class="h-full w-full object-cover object-left lg:object-left-top"
       >
       <!-- Soft right fade overlay to seamlessly integrate card area -->
-      <div class="absolute inset-y-0 right-0 w-full lg:w-1/2 bg-gradient-to-l from-[#fbf9f8]/95 via-[#fbf9f8]/60 to-transparent pointer-events-none" />
+      <div class="absolute inset-y-0 right-0 w-full lg:w-1/2 bg-gradient-to-l from-(--ui-bg)/95 via-(--ui-bg)/60 to-transparent pointer-events-none" />
     </div>
 
     <!-- Top Header / Brand Logo -->
@@ -53,13 +53,13 @@ function handleGoogleSignIn() {}
 
     <!-- Center Content / Auth Card -->
     <main class="relative z-10 flex w-full flex-1 items-center justify-center lg:justify-end lg:pr-8 xl:pr-20 my-auto">
-      <div class="w-full max-w-[420px] rounded-2xl bg-white p-6 sm:p-8 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.08),0_4px_12px_-2px_rgba(0,0,0,0.03)] border border-[#ece7e1]">
+      <div class="w-full max-w-[420px] rounded-2xl bg-(--ui-bg-card) p-6 sm:p-8 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.08),0_4px_12px_-2px_rgba(0,0,0,0.03)] border border-(--ui-border)">
         <!-- Title & Subtitle -->
         <div class="mb-5">
-          <h2 class="text-[22px] sm:text-2xl font-bold tracking-tight text-[#1b1c1b] leading-tight">
+          <h2 class="text-[22px] sm:text-2xl font-bold tracking-tight text-default leading-tight">
             Welcome back
           </h2>
-          <p class="mt-1 text-xs sm:text-sm text-[#6e6863]">
+          <p class="mt-1 text-xs sm:text-sm text-dimmed">
             Sign in to your account to continue
           </p>
         </div>
@@ -67,7 +67,7 @@ function handleGoogleSignIn() {}
         <!-- Error Banner -->
         <div
           v-if="error"
-          class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs sm:text-sm text-red-700"
+          class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs sm:text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
         >
           <UIcon
             name="i-lucide-alert-circle"
@@ -85,12 +85,12 @@ function handleGoogleSignIn() {}
           <div>
             <label
               for="email"
-              class="block text-xs font-semibold text-[#1b1c1b] mb-1"
+              class="block text-xs font-semibold text-default mb-1"
             >
               Email address
             </label>
             <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-[#8a847e]">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-dimmed">
                 <UIcon
                   name="i-lucide-mail"
                   class="size-4"
@@ -102,7 +102,7 @@ function handleGoogleSignIn() {}
                 type="email"
                 required
                 placeholder="Enter your email"
-                class="w-full rounded-lg border border-[#e5e1e0] bg-white py-2 pl-9 pr-3 text-sm text-[#1b1c1b] placeholder:text-[#a8a29e] outline-none transition-all duration-150 hover:border-[#d6d0cd] focus:border-[#9f3c11] focus:ring-2 focus:ring-[#9f3c11]/15"
+                class="w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) py-2 pl-9 pr-3 text-sm text-default placeholder:text-muted outline-none transition-all duration-150 hover:border-(--ui-border-accented) focus:border-primary focus:ring-2 focus:ring-primary/15"
               >
             </div>
           </div>
@@ -111,12 +111,12 @@ function handleGoogleSignIn() {}
           <div>
             <label
               for="password"
-              class="block text-xs font-semibold text-[#1b1c1b] mb-1"
+              class="block text-xs font-semibold text-default mb-1"
             >
               Password
             </label>
             <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-[#8a847e]">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-dimmed">
                 <UIcon
                   name="i-lucide-lock"
                   class="size-4"
@@ -128,12 +128,12 @@ function handleGoogleSignIn() {}
                 :type="showPassword ? 'text' : 'password'"
                 required
                 placeholder="Enter your password"
-                class="w-full rounded-lg border border-[#e5e1e0] bg-white py-2 pl-9 pr-10 text-sm text-[#1b1c1b] placeholder:text-[#a8a29e] outline-none transition-all duration-150 hover:border-[#d6d0cd] focus:border-[#9f3c11] focus:ring-2 focus:ring-[#9f3c11]/15"
+                class="w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) py-2 pl-9 pr-10 text-sm text-default placeholder:text-muted outline-none transition-all duration-150 hover:border-(--ui-border-accented) focus:border-primary focus:ring-2 focus:ring-primary/15"
               >
               <button
                 type="button"
                 aria-label="Toggle password visibility"
-                class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#8a847e] transition-colors hover:text-[#1b1c1b]"
+                class="absolute inset-y-0 right-0 flex items-center pr-3 text-dimmed transition-colors hover:text-default"
                 @click="showPassword = !showPassword"
               >
                 <UIcon
@@ -148,7 +148,7 @@ function handleGoogleSignIn() {}
           <div class="flex justify-end pt-0.5">
             <a
               href="#"
-              class="text-xs font-semibold text-[#9f3c11] transition-colors hover:text-[#7a2a00] hover:underline"
+              class="text-xs font-semibold text-primary transition-colors hover:text-primary-600 dark:hover:text-primary-300 hover:underline"
               @click.prevent
             >
               Forgot password?
@@ -161,11 +161,11 @@ function handleGoogleSignIn() {}
               id="remember"
               v-model="rememberMe"
               type="checkbox"
-              class="h-3.5 w-3.5 rounded border-[#d6d0cd] text-[#9f3c11] accent-[#9f3c11] focus:ring-[#9f3c11]/20 cursor-pointer"
+              class="h-3.5 w-3.5 rounded border-(--ui-border-accented) text-primary accent-primary focus:ring-primary/20 cursor-pointer"
             >
             <label
               for="remember"
-              class="text-xs font-medium text-[#4b4642] cursor-pointer select-none"
+              class="text-xs font-medium text-dimmed cursor-pointer select-none"
             >
               Remember me
             </label>
@@ -175,7 +175,7 @@ function handleGoogleSignIn() {}
           <button
             type="submit"
             :disabled="isLoading"
-            class="w-full rounded-lg bg-[#9f3c11] py-2.5 px-4 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-[#8a340d] active:bg-[#7a2a00] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-1"
+            class="w-full rounded-lg bg-primary py-2.5 px-4 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-primary-600 active:bg-primary-700 dark:hover:bg-primary-300 dark:active:bg-primary-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-1"
           >
             <UIcon
               v-if="isLoading"
@@ -188,8 +188,8 @@ function handleGoogleSignIn() {}
 
         <!-- Divider -->
         <div class="relative my-4 flex items-center justify-center">
-          <div class="w-full border-t border-[#eae5e0]" />
-          <span class="absolute bg-white px-2.5 text-[11px] font-medium text-[#8a847e]">
+          <div class="w-full border-t border-(--ui-border)" />
+          <span class="absolute bg-(--ui-bg-card) px-2.5 text-[11px] font-medium text-dimmed">
             or continue with
           </span>
         </div>
@@ -198,7 +198,7 @@ function handleGoogleSignIn() {}
         <button
           type="button"
           :disabled="isLoading"
-          class="w-full rounded-lg border border-[#e5e1e0] bg-white py-2 px-4 text-xs sm:text-sm font-medium text-[#1b1c1b] transition-colors duration-150 hover:bg-[#faf7f5] hover:border-[#d6d0cd] active:bg-[#f2ece6] flex items-center justify-center gap-2.5 cursor-pointer"
+          class="w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) py-2 px-4 text-xs sm:text-sm font-medium text-default transition-colors duration-150 hover:bg-(--ui-bg-accented) hover:border-(--ui-border-accented) active:bg-(--ui-bg-accented) flex items-center justify-center gap-2.5 cursor-pointer"
           @click="handleGoogleSignIn"
         >
           <svg
@@ -226,11 +226,11 @@ function handleGoogleSignIn() {}
         </button>
 
         <!-- Card Footer Link -->
-        <p class="mt-4 text-center text-xs text-[#6e6863]">
+        <p class="mt-4 text-center text-xs text-dimmed">
           Don't have an account?
           <RouterLink
             to="/register"
-            class="font-semibold text-[#9f3c11] transition-colors hover:text-[#7a2a00] hover:underline ml-1"
+            class="font-semibold text-primary transition-colors hover:text-primary-600 dark:hover:text-primary-300 hover:underline ml-1"
           >
             Create account
           </RouterLink>
@@ -239,7 +239,7 @@ function handleGoogleSignIn() {}
     </main>
 
     <!-- Page Footer -->
-    <footer class="relative z-10 w-full text-center text-[11px] sm:text-xs text-[#8a847e] select-none py-1 shrink-0">
+    <footer class="relative z-10 w-full text-center text-[11px] sm:text-xs text-dimmed select-none py-1 shrink-0">
       © 2024 Athenaeum Management System. All rights reserved.
     </footer>
   </div>

@@ -29,7 +29,7 @@ const props = defineProps<{
       variant="ghost"
       size="sm"
       aria-label="Delete"
-      class="hover:!bg-red-50 hover:!text-red-600"
+      class="hover:!bg-red-50 hover:!text-red-600 dark:hover:!bg-red-950/50 dark:hover:!text-red-400"
       @click="props.params.onDelete?.(props.params)"
     />
   </div>

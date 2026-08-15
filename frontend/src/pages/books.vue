@@ -270,7 +270,7 @@ async function confirmDelete() {
 }
 
 const fieldUi = {
-  base: '!rounded-lg !bg-white !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
+  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 
 const copiesUi = {
@@ -294,7 +294,7 @@ const copiesUi = {
 
     <div
       v-if="loadError"
-      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
     >
       <UIcon
         name="i-lucide-alert-circle"
@@ -313,7 +313,7 @@ const copiesUi = {
           v-model="search"
           type="text"
           placeholder="Search books by title, author or category..."
-          class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-white pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
+          class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
         >
       </div>
 
@@ -323,7 +323,7 @@ const copiesUi = {
             color="neutral"
             variant="outline"
             icon="i-lucide-filter"
-            class="!h-[38px] !rounded-lg !bg-white !px-4 shadow-sm"
+            class="!h-[38px] !rounded-lg !bg-(--ui-bg-card) !px-4 shadow-sm"
           >
             Filters
           </UButton>
@@ -365,7 +365,7 @@ const copiesUi = {
       </div>
     </div>
 
-    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-(--ui-border)">
+    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-(--ui-bg-card) shadow-sm ring-1 ring-(--ui-border)">
       <AppDataGrid
         v-model:api="gridApi"
         :rows="rows"
@@ -382,14 +382,14 @@ const copiesUi = {
       :description="editingBook ? 'Update book details' : 'Add a new book to your library'"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
-        content: '!max-w-2xl !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+        content: '!max-w-2xl !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
       }"
     >
       <template #content="{ close }">
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f5f3f2]">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--ui-bg-accented)">
                 <UIcon
                   name="i-lucide-book-open"
                   class="text-lg text-highlighted"
@@ -417,7 +417,7 @@ const copiesUi = {
           <div class="grow overflow-y-auto py-2 px-3">
             <div
               v-if="formError"
-              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
             >
               <UIcon
                 name="i-lucide-alert-circle"
@@ -502,7 +502,7 @@ const copiesUi = {
                       <div class="flex h-full flex-col border-l border-(--ui-border)">
                         <button
                           type="button"
-                          class="flex flex-1 items-center justify-center px-2 text-muted transition-colors hover:bg-[#f5f3f2]"
+                          class="flex flex-1 items-center justify-center px-2 text-muted transition-colors hover:bg-(--ui-bg-accented)"
                           aria-label="Increase copies"
                           @click="incrementCopies"
                         >
@@ -513,7 +513,7 @@ const copiesUi = {
                         </button>
                         <button
                           type="button"
-                          class="flex flex-1 items-center justify-center border-t border-(--ui-border) px-2 text-muted transition-colors hover:bg-[#f5f3f2]"
+                          class="flex flex-1 items-center justify-center border-t border-(--ui-border) px-2 text-muted transition-colors hover:bg-(--ui-bg-accented)"
                           aria-label="Decrease copies"
                           @click="decrementCopies"
                         >
@@ -550,12 +550,12 @@ const copiesUi = {
             </UForm>
           </div>
 
-          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-[#f5f3f2] px-4 py-3">
+          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-(--ui-bg-accented) px-4 py-3">
             <UButton
               color="neutral"
               variant="outline"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-[#f5f3f2]"
+              class="rounded-lg px-8 py-2.5 bg-transparent ring-black/10 hover:bg-black/10 dark:ring-white/10 dark:hover:!bg-white/10"
               @click="close"
             >
               Cancel
@@ -565,7 +565,7 @@ const copiesUi = {
               variant="solid"
               :icon="editingBook ? 'i-lucide-save' : 'i-lucide-book-open'"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 hover:!bg-brand-600"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
               @click="bookForm?.submit()"
             >
@@ -580,17 +580,17 @@ const copiesUi = {
       v-model:open="deleteModalOpen"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
-        content: '!max-w-md !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+        content: '!max-w-md !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
       }"
     >
       <template #content>
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-50">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/50">
                 <UIcon
                   name="i-lucide-trash-2"
-                  class="text-lg text-red-600"
+                  class="text-lg text-red-600 dark:text-red-400"
                 />
               </div>
               <div>
@@ -620,7 +620,7 @@ const copiesUi = {
 
             <div
               v-if="deleteError"
-              class="mt-3 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+              class="mt-3 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
             >
               <UIcon
                 name="i-lucide-alert-circle"
@@ -630,12 +630,12 @@ const copiesUi = {
             </div>
           </div>
 
-          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-[#f5f3f2] px-4 py-3">
+          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-(--ui-bg-accented) px-4 py-3">
             <UButton
               color="neutral"
               variant="outline"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-[#f5f3f2]"
+              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-(--ui-bg-accented)"
               @click="deleteTarget = null"
             >
               Cancel

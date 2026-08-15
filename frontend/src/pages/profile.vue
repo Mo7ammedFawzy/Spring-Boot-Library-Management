@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="flex min-h-0 flex-1 flex-col rounded-xl bg-white shadow-sm ring-1 ring-(--ui-border)">
+    <div class="flex min-h-0 flex-1 flex-col rounded-xl bg-(--ui-bg-card) shadow-sm ring-1 ring-(--ui-border)">
       <div class="flex items-center gap-4 border-b border-(--ui-border) p-4">
         <UAvatar size="xl" text="MF" color="primary" class="shrink-0" />
         <div class="min-w-0">

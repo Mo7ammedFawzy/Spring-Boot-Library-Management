@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
+import { useColorMode } from '@vueuse/core'
 import { AgGridVue } from 'ag-grid-vue3'
 import { themeQuartz, type ColDef, type GetRowIdParams, type GridApi, type GridReadyEvent } from 'ag-grid-community'
 import '../lib/agGrid'
@@ -30,7 +31,7 @@ const emit = defineEmits<{
 
 const gridApi = defineModel<GridApi | null>('api', { default: null })
 
-const theme = themeQuartz.withParams({
+const lightTheme = themeQuartz.withParams({
   fontFamily: "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
   fontSize: 14,
   headerFontFamily: "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
@@ -54,6 +55,34 @@ const theme = themeQuartz.withParams({
   spacing: 8,
   iconSize: 16
 })
+
+const darkTheme = themeQuartz.withParams({
+  fontFamily: "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
+  fontSize: 14,
+  headerFontFamily: "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
+  headerFontSize: 11,
+  headerFontWeight: 600,
+  headerTextColor: '#a8a29e',
+  headerBackgroundColor: '#292524',
+  backgroundColor: '#292524',
+  textColor: '#e7e5e4',
+  subtleTextColor: '#78716c',
+  borderColor: '#3a3532',
+  borderWidth: 1,
+  wrapperBorder: false,
+  headerRowBorder: { color: '#3a3532', width: 1, style: 'solid' },
+  rowBorder: { color: '#3a3532', width: 1, style: 'solid' },
+  columnBorder: false,
+  rowHoverColor: '#35302c',
+  rowHeight: props.rowHeight,
+  headerHeight: props.headerHeight,
+  paginationPanelHeight: 48,
+  spacing: 8,
+  iconSize: 16
+})
+
+const colorMode = useColorMode()
+const theme = computed(() => (colorMode.value === 'dark' ? darkTheme : lightTheme))
 
 const defaultColDef: ColDef = {
   sortable: true,
@@ -107,6 +136,6 @@ watch(() => props.quickFilterText, (value) => {
 :deep(.ag-paging-panel) {
   border-top-width: 1px;
   font-size: 13px;
-  color: #6e6863;
+  color: var(--ui-text-muted);
 }
 </style>

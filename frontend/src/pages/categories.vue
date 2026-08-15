@@ -143,7 +143,7 @@ async function confirmDelete() {
 }
 
 const fieldUi = {
-  base: '!rounded-lg !bg-white !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
+  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 </script>
 
@@ -161,7 +161,7 @@ const fieldUi = {
 
     <div
       v-if="loadError"
-      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
     >
       <UIcon
         name="i-lucide-alert-circle"
@@ -180,7 +180,7 @@ const fieldUi = {
           v-model="search"
           type="text"
           placeholder="Search categories by name..."
-          class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-white pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
+          class="h-[38px] w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) pl-9 pr-4 text-sm text-highlighted shadow-sm outline-none transition-colors placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
         >
       </div>
 
@@ -193,7 +193,7 @@ const fieldUi = {
       </UButton>
     </div>
 
-    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-(--ui-border)">
+    <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-(--ui-bg-card) shadow-sm ring-1 ring-(--ui-border)">
       <AppDataGrid
         v-model:api="gridApi"
         :rows="rows"
@@ -208,16 +208,16 @@ const fieldUi = {
       v-model:open="formOpen"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
-        content: '!max-w-md !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+        content: '!max-w-md !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
       }"
     >
       <template #content="{ close }">
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f5f3f2]">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--ui-bg-accented)">
                 <UIcon
-                  name="i-lucide-tag"
+                  name="i-lucide-tags"
                   class="text-lg text-highlighted"
                 />
               </div>
@@ -243,7 +243,7 @@ const fieldUi = {
           <div class="grow px-4 py-4">
             <div
               v-if="formError"
-              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+              class="mb-4 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
             >
               <UIcon
                 name="i-lucide-alert-circle"
@@ -274,12 +274,12 @@ const fieldUi = {
             </UForm>
           </div>
 
-          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-[#f5f3f2] px-4 py-3">
+          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-(--ui-bg-accented) px-4 py-3">
             <UButton
               color="neutral"
               variant="outline"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-[#f5f3f2]"
+              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-(--ui-bg-accented)"
               @click="close"
             >
               Cancel
@@ -289,7 +289,7 @@ const fieldUi = {
               variant="solid"
               :icon="editingCategory ? 'i-lucide-save' : 'i-lucide-tag'"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 hover:!bg-brand-600"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
               @click="categoryForm?.submit()"
             >
@@ -304,17 +304,17 @@ const fieldUi = {
       v-model:open="deleteModalOpen"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
-        content: '!max-w-md !rounded-xl !bg-white !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
+        content: '!max-w-md !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
       }"
     >
       <template #content>
         <div class="flex flex-col">
           <div class="flex shrink-0 items-center justify-between gap-4 border-b border-(--ui-border) px-4 py-3">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-50">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/50">
                 <UIcon
                   name="i-lucide-trash-2"
-                  class="text-lg text-red-600"
+                  class="text-lg text-red-600 dark:text-red-400"
                 />
               </div>
               <div>
@@ -344,7 +344,7 @@ const fieldUi = {
 
             <div
               v-if="deleteError"
-              class="mt-3 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+              class="mt-3 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-950 dark:bg-red-950/40 dark:text-red-300"
             >
               <UIcon
                 name="i-lucide-alert-circle"
@@ -354,12 +354,12 @@ const fieldUi = {
             </div>
           </div>
 
-          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-[#f5f3f2] px-4 py-3">
+          <div class="flex shrink-0 items-center justify-end gap-2 border-t border-(--ui-border) bg-(--ui-bg-accented) px-4 py-3">
             <UButton
               color="neutral"
               variant="outline"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-[#f5f3f2]"
+              class="!rounded-lg !px-8 !py-2.5 !bg-transparent ring-(--ui-border-accented) hover:!bg-(--ui-bg-accented)"
               @click="deleteTarget = null"
             >
               Cancel
