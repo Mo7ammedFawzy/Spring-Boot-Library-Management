@@ -26,6 +26,7 @@ backend/.mvn/wrapper/maven-wrapper.jar
 /nbdist/
 /.nb-gradle/
 build/
+.playwright-mcp/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
