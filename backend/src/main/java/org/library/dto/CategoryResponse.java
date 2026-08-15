@@ -1,12 +1,5 @@
 package org.library.dto;
 
-import lombok.*;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CategoryResponse
+public record CategoryResponse(Long id, String name)
 {
-	private Long id;
-	private String name;
 }

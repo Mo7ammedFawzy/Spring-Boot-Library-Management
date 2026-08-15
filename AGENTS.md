@@ -30,7 +30,7 @@ Run commands from `backend/`:
 - Database schema is managed with Hibernate `ddl-auto=update`; there are no migrations.
 - All routes except `/api/auth/**` and `/error` require JWT authentication.
 - Role-based authorization is not currently implemented.
-- Controllers inject concrete service implementations; follow the existing pattern.
+- Controllers inject service interfaces; follow the existing pattern.
 - `CategoryServiceImp` is the existing category service implementation name; preserve it.
 - Responses use `payload.ApiResponse`.
 - Errors are handled by the existing `GlobalExceptionHandler`.

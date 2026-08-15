@@ -1,0 +1,3 @@
+┌─────────────────────────────────────────┐ │ BACKEND FEATURE BLUEPRINT │ ├─────────────────────────────────────────┤ │ │ │ □ Requirement │ │ □ Use
+Case │ │ □ Business Rules │ │ □ Entities / Relationships │ │ □ State Changes │ │ □ API Contract │ │ □ DTO │ │ □ Validation │ │ □ Exceptions │ │ □
+Authorization │ │ □ Transaction │ │ □ Implementation │ │ □ Test Cases │ │ □ Code Review │ │ │ └─────────────────────────────────────────┘

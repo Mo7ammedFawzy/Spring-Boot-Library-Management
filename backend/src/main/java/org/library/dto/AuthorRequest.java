@@ -1,9 +1,7 @@
 package org.library.dto;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
 
-@Data
-public class AuthorRequest
+public record AuthorRequest(@NotBlank String name)
 {
-	private String name;
 }

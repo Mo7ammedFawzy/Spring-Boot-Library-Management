@@ -1,9 +1,9 @@
 package org.library.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.library.exception.ResourceNotFoundException;
 import org.library.dto.*;
 import org.library.entity.Category;
+import org.library.exception.ResourceNotFoundException;
 import org.library.mapper.CategoryMapper;
 import org.library.repository.CategoryRepository;
 import org.library.service.CategoryService;
@@ -35,15 +35,15 @@ public class CategoryServiceImp implements CategoryService
 	@Override
 	public void deleteCategory(Long id)
 	{
-		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
+		Category category = this.categoryRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Category.class, id));
 		this.categoryRepository.delete(category);
 	}
 
 	@Override
 	public CategoryResponse updateCategory(Long id, CategoryRequest request)
 	{
-		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
-		category.setName(request.getName());
+		Category category = this.categoryRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Category.class, id));
+		category.setName(request.name());
 		Category updatedCategory = this.categoryRepository.save(category);
 		return CategoryMapper.toResponse(updatedCategory);
 	}
@@ -51,7 +51,7 @@ public class CategoryServiceImp implements CategoryService
 	@Override
 	public CategoryResponse getCategoryById(Long id)
 	{
-		Category category = this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class, id));
+		Category category = this.categoryRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Category.class, id));
 		return CategoryMapper.toResponse(category);
 	}
 }

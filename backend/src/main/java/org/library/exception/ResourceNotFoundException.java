@@ -16,4 +16,9 @@ public class ResourceNotFoundException extends RuntimeException
 	{
 		super(message);
 	}
+
+	public static RuntimeException create(Class<?> resource, Object id)
+	{
+		return new ResourceNotFoundException(resource, id);
+	}
 }

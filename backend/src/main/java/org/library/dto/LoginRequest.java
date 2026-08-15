@@ -1,11 +1,5 @@
 package org.library.dto;
 
-import lombok.Data;
-
-@Data
-public class LoginRequest
+public record LoginRequest(String email, String password)
 {
-	private String email;
-	private String password;
-
 }

@@ -1,10 +1,5 @@
 package org.library.dto;
 
-import lombok.*;
-
-@Data
-@AllArgsConstructor
-public class AuthResponse
+public record AuthResponse(String token)
 {
-	private String token;
 }

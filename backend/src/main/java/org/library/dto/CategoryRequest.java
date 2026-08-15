@@ -1,11 +1,7 @@
 package org.library.dto;
 
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
 
-@Data
-public class CategoryRequest
+public record CategoryRequest(@NotBlank String name)
 {
-	@NotBlank
-	private String name;
 }

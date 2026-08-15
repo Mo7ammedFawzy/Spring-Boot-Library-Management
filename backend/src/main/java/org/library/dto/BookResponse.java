@@ -1,22 +1,10 @@
 package org.library.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-import org.library.entity.*;
-import org.w3c.dom.stylesheets.LinkStyle;
+import org.library.entity.Author;
+import org.library.entity.Category;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class BookResponse
+public record BookResponse(Long id, String title, String description, Long availableCopies, Category category, List<Author> authors)
 {
-	private Long id;
-	private String title;
-	private String description;
-	private Long availableCopies;
-	private Category category;
-	private List<Author> authors;
 }

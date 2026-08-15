@@ -14,7 +14,7 @@ public class AuthorMapper
 	public static Author toEntity(AuthorRequest request)
 	{
 		Author author = new Author();
-		author.setName(request.getName());
+		author.setName(request.name());
 		return author;
 	}
 }

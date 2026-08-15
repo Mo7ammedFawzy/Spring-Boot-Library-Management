@@ -1,22 +1,10 @@
 package org.library.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class BookRequest
+public record BookRequest(@NotBlank String title, @Size(min = 10) String description, @NotNull @Min(0) Long availableCopies,
+                          @NotNull Long categoryId, @NotEmpty List<@NotNull Long> authorIds)
 {
-	@NotBlank
-	private String title;
-	@Size(min = 10)
-	private String description;
-	@NotNull
-	@Min(0)
-	private Long availableCopies;
-	@NotNull
-	private Long categoryId;
-	@NotEmpty
-	private List<@NotNull Long> authorIds;
 }

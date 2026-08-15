@@ -1,15 +1,15 @@
 package org.library.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.library.exception.ResourceNotFoundException;
 import org.library.dto.*;
 import org.library.entity.*;
+import org.library.exception.ResourceNotFoundException;
 import org.library.mapper.BookMapper;
 import org.library.repository.*;
 import org.library.service.BookService;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +22,10 @@ public class BookServiceImpl implements BookService
 	@Override
 	public BookResponse createBook(BookRequest request)
 	{
-		Category category = this.categoryRepository.findById(request.getCategoryId())
-				.orElseThrow(() -> new ResourceNotFoundException(Category.class, request.getCategoryId()));
-		List<Author> authors = this.authorRepository.findAllById(request.getAuthorIds());
-		if (authors.size() != request.getAuthorIds().size())
+		Category category = this.categoryRepository.findById(request.categoryId())
+				.orElseThrow(() -> ResourceNotFoundException.create(Category.class, request.categoryId()));
+		List<Author> authors = this.authorRepository.findAllById(request.authorIds());
+		if (authors.size() != request.authorIds().size())
 			throw new ResourceNotFoundException("One or more authors not found");
 		Book entity = BookMapper.toEntity(request, category, authors);
 		Book createdBook = this.bookRepository.save(entity);
@@ -42,20 +42,20 @@ public class BookServiceImpl implements BookService
 	@Override
 	public BookResponse getBookById(Long id)
 	{
-		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class,id));
+		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class, id));
 		return BookMapper.toResponse(book);
 	}
 
 	@Override
 	public BookResponse updateBook(Long id, BookRequest request)
 	{
-		Category category = this.categoryRepository.findById(request.getCategoryId())
-				.orElseThrow(() -> new ResourceNotFoundException(Category.class, request.getCategoryId()));
-		List<Author> authors = this.authorRepository.findAllById(request.getAuthorIds());
-		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class,id));
-		book.setTitle(request.getTitle());
-		book.setDescription(request.getDescription());
-		book.setAvailableCopies(request.getAvailableCopies());
+		Category category = this.categoryRepository.findById(request.categoryId())
+				.orElseThrow(() -> ResourceNotFoundException.create(Category.class, request.categoryId()));
+		List<Author> authors = this.authorRepository.findAllById(request.authorIds());
+		Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class, id));
+		book.setTitle(request.title());
+		book.setDescription(request.description());
+		book.setAvailableCopies(request.availableCopies());
 		book.setCategory(category);
 		book.setAuthors(authors);
 		Book updatedBook = this.bookRepository.save(book);
@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService
 	@Override
 	public void deleteBook(Long id)
 	{
-		Book book = this.bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Book.class, id));
+		Book book = this.bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
 		bookRepository.delete(book);
 	}
 

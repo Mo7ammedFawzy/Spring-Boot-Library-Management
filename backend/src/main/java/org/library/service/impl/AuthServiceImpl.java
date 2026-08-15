@@ -24,8 +24,8 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public AuthResponse register(RegisterRequest request)
 	{
-		String encodedPassword = passwordEncoder.encode(request.getPassword());
-		User user = User.builder().name(request.getName()).role(Role.USER).email(request.getEmail()).password(encodedPassword).build();
+		String encodedPassword = passwordEncoder.encode(request.password());
+		User user = User.builder().name(request.name()).role(Role.USER).email(request.email()).password(encodedPassword).build();
 		userRepository.save(user);
 		String token = jwtUtil.generateToken(user);
 		return new AuthResponse(token);
@@ -34,8 +34,8 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public AuthResponse login(LoginRequest request)
 	{
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-		User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("Email is not found"));
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(),request.password()));
+		User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new UsernameNotFoundException("Email is not found"));
 		String token = jwtUtil.generateToken(user);
 		return new AuthResponse(token);
 	}

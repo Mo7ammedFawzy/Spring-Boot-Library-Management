@@ -2,9 +2,9 @@ package org.library.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.library.payload.ApiResponse;
 import org.library.dto.*;
-import org.library.service.impl.BookServiceImpl;
+import org.library.payload.ApiResponse;
+import org.library.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController
 {
-	private final BookServiceImpl bookService;
+	private final BookService bookService;
 
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<BookResponse>>> getAllBooks()
@@ -28,7 +28,7 @@ public class BookController
 	public ResponseEntity<ApiResponse<BookResponse>> createBook(@Valid @RequestBody BookRequest bookRequest)
 	{
 		BookResponse createdBook = this.bookService.createBook(bookRequest);
-		return ApiResponse.okResponse(createdBook,"Book created successfully!");
+		return ApiResponse.okResponse(createdBook, "Book created successfully!");
 	}
 
 	@GetMapping("/{id}")
@@ -37,6 +37,7 @@ public class BookController
 		BookResponse book = this.bookService.getBookById(id);
 		return ApiResponse.okResponse(book);
 	}
+
 	@GetMapping("/categories/{categoryId}")
 	public ResponseEntity<ApiResponse<List<BookResponse>>> getBooksByCategoryId(@PathVariable Long categoryId)
 	{
@@ -45,10 +46,10 @@ public class BookController
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id,@Valid @RequestBody BookRequest bookRequest)
+	public ResponseEntity<ApiResponse<BookResponse>> updateBook(@PathVariable Long id, @Valid @RequestBody BookRequest bookRequest)
 	{
 		BookResponse bookResponse = this.bookService.updateBook(id, bookRequest);
-		return ApiResponse.okResponse(bookResponse,"Book updated successfully!");
+		return ApiResponse.okResponse(bookResponse, "Book updated successfully!");
 	}
 
 	@DeleteMapping("/{id}")
@@ -59,7 +60,8 @@ public class BookController
 	}
 
 	@DeleteMapping
-	public ResponseEntity<ApiResponse<String>> deleteBooks(){
+	public ResponseEntity<ApiResponse<String>> deleteBooks()
+	{
 		this.bookService.deleteBooks();
 		return ApiResponse.okResponse(null, "Books deleted successfully!");
 	}
