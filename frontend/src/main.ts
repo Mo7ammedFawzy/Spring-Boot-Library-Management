@@ -7,6 +7,7 @@ import { createHead } from '@unhead/vue/client'
 import ui from '@nuxt/ui/vue-plugin'
 
 import App from './App.vue'
+import { isAuthenticated } from './services/api'
 
 const app = createApp(App)
 
@@ -16,9 +17,19 @@ const router = createRouter({
   history: createWebHistory()
 })
 
+const authPages = ['/login', '/register']
+
 router.beforeEach((to) => {
   if (to.path === '/') {
     return { path: '/dashboard' }
+  }
+
+  const authed = isAuthenticated()
+  if (authPages.includes(to.path) && authed) {
+    return { path: '/dashboard' }
+  }
+  if (!authPages.includes(to.path) && !authed) {
+    return { path: '/login' }
   }
 })
 

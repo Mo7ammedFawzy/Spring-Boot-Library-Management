@@ -5,7 +5,7 @@ import { themeQuartz, type ColDef, type GetRowIdParams, type GridApi, type GridR
 import '../lib/agGrid'
 
 const props = withDefaults(defineProps<{
-  rows: Array<Record<string, unknown>>
+  rows: unknown[]
   columns: ColDef[]
   getRowId?: (params: GetRowIdParams) => string
   quickFilterText?: string
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   headerHeight: 40,
   pageSize: 10,
   pageSizeSelector: () => [10, 20, 50, 100],
-  height: '488px'
+  height: '100%'
 })
 
 const emit = defineEmits<{
@@ -77,12 +77,12 @@ watch(() => props.quickFilterText, (value) => {
 <template>
   <AgGridVue
     class="ag-theme-athenaeum"
-    :style="{ height, width: '100%' }"
+    :style="{ width: '100%', height, flex: '1 1 0%', minHeight: '0' }"
     :theme="theme"
     :column-defs="columns"
     :row-data="rows"
     :default-col-def="defaultColDef"
-    :get-row-id="getRowId ?? defaultGetRowId"
+    :get-row-id="getRowId"
     :pagination="true"
     :pagination-page-size="pageSize"
     :pagination-page-size-selector="pageSizeSelector"

@@ -6,6 +6,7 @@
 @theme static {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-display: 'Geist Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Lora', 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
 
   --color-brand-50: #fceee8;
   --color-brand-100: #f7d7c9;

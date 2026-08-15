@@ -66,6 +66,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/change-password': RouteRecordInfo<
+      '/change-password',
+      '/change-password',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/dashboard': RouteRecordInfo<
       '/dashboard',
       '/dashboard',
@@ -73,9 +80,30 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/login': RouteRecordInfo<
+      '/login',
+      '/login',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/members': RouteRecordInfo<
       '/members',
       '/members',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/profile': RouteRecordInfo<
+      '/profile',
+      '/profile',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/register': RouteRecordInfo<
+      '/register',
+      '/register',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -140,6 +168,14 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
+    'src/pages/change-password.vue': {
+      routes:
+        | '/change-password'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
     'src/pages/dashboard.vue': {
       routes:
         | '/dashboard'
@@ -148,9 +184,33 @@ declare module 'vue-router/auto-routes' {
       pathParamNames:
         | never
     }
+    'src/pages/login.vue': {
+      routes:
+        | '/login'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
     'src/pages/members.vue': {
       routes:
         | '/members'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/profile.vue': {
+      routes:
+        | '/profile'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/register.vue': {
+      routes:
+        | '/register'
       views:
         | never
       pathParamNames:
