@@ -29,4 +29,10 @@ public class BorrowController
 		List<BorrowResponse> response = borrowService.getAllBorrows();
 		return ApiResponse.okResponse(response);
 	}
+
+	@PostMapping("/{id}/return")
+	public ResponseEntity<ApiResponse<BorrowResponse>> returnBook(@PathVariable Long id){
+		BorrowResponse response = borrowService.returnBook(id);
+		return ApiResponse.okResponse(response);
+	}
 }

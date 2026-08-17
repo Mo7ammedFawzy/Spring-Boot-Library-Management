@@ -45,6 +45,23 @@ public class BorrowServiceImpl implements BorrowService
 		return records.stream().map(BorrowMapper::toResponse).toList();
 	}
 
+	@Override
+	public BorrowResponse returnBook(Long id)
+	{
+			// make sure the book exist , and the book has a borrowRecord with current userId
+		//after that add a copy in book availableCopies
+		Book book = bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
+		User user = CurrentUserService.getCurrentUser();
+		BorrowRecord borrowRecord = borrowRecordRepository.findOneByUserAndBook(user, book);
+		if (ObjectUtils.isEmpty(borrowRecord))
+			throw new RuntimeException("Book does not have a borrow");
+		borrowRecord.setReturnDate(LocalDate.now());
+		borrowRecordRepository.save(borrowRecord);
+		book.setAvailableCopies(book.getAvailableCopies()+1);
+		bookRepository.save(book);
+		return BorrowMapper.toResponse(borrowRecord);
+	}
+
 	private boolean checkIfBookIsAvailable(Book book)
 	{
 		if (ObjectUtils.isEmpty(book))

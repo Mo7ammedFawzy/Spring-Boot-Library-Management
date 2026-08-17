@@ -9,4 +9,6 @@ public interface BorrowService
 	BorrowResponse borrow(Long id);
 
 	List<BorrowResponse> getAllBorrows();
+
+	BorrowResponse returnBook(Long id);
 }
