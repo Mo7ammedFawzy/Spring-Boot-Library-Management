@@ -89,3 +89,17 @@ After implementation:
 - Trust the actual code and configuration over aspirational documentation.
 - `README.md` and `backend/Tasks.md` may describe planned features that are not implemented.
 - Do not assume a feature exists because it is mentioned in documentation — verify from source code and configuration.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
