@@ -14,6 +14,19 @@ const showPassword = ref(false)
 const isLoading = ref(false)
 const error = ref('')
 
+const TEST_EMAIL = 'test@example.com'
+const TEST_PASSWORD = 'test123456'
+
+function fillTestCredentials() {
+  email.value = TEST_EMAIL
+  password.value = TEST_PASSWORD
+}
+
+async function handleTestLogin() {
+  fillTestCredentials()
+  await handleSubmit()
+}
+
 async function handleSubmit() {
   isLoading.value = true
   error.value = ''
@@ -169,6 +182,19 @@ function handleGoogleSignIn() {}
             >
               Remember me
             </label>
+          </div>
+
+          <!-- Test Login Button -->
+          <div class="mt-2">
+            <button
+              type="button"
+              :disabled="isLoading"
+              class="w-full rounded-lg border border-(--ui-border) bg-(--ui-bg-card) py-2 px-4 text-xs sm:text-sm font-medium text-default transition-colors duration-150 hover:bg-(--ui-bg-accented) hover:border-(--ui-border-accented) active:bg-(--ui-bg-accented) flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+              @click="handleTestLogin"
+            >
+              <UIcon name="i-lucide-flask-conical" class="size-4" />
+              <span>Test Login (auto-fill)</span>
+            </button>
           </div>
 
           <!-- Primary Submit Button -->

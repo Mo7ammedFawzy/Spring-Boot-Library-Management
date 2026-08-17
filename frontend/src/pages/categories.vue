@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, type Ref } from 'vue'
 import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
-import type { FormError } from '@nuxt/ui'
+import type { FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
   createCategory,
   deleteCategory,
@@ -11,6 +11,11 @@ import {
   type Category
 } from '../services/categories'
 import { ApiError } from '../services/api'
+
+const breadcrumbItems = ref<BreadcrumbItem[]>([
+  { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
+  { label: 'Categories', icon: 'i-lucide-folder-open' }
+])
 
 const rows: Ref<Category[]> = ref([])
 const gridApi = ref<GridApi<Category> | null>(null)
@@ -150,11 +155,27 @@ const fieldUi = {
 <template>
   <div class="flex min-h-0 flex-1 flex-col">
     <div class="mb-4">
-
-      <h1 class="font-display text-[28px] font-semibold leading-9 tracking-tight text-highlighted">
-        Categories
-      </h1>
-      <p class="mt-1 text-sm text-muted">
+      <UBreadcrumb class="mb-2" :items="breadcrumbItems">
+        <template #item="{ item }">
+          <span
+            :class="[
+              'flex items-center gap-1.5 text-sm transition-colors',
+              item.to ? 'text-muted hover:text-highlighted cursor-pointer' : 'font-semibold text-highlighted'
+            ]"
+          >
+            <UIcon
+              v-if="item.icon"
+              :name="item.icon"
+              class="size-4 text-muted"
+            />
+            {{ item.label }}
+          </span>
+        </template>
+        <template #separator>
+          <UIcon name="i-lucide-chevron-right" class="size-3.5 text-muted" />
+        </template>
+      </UBreadcrumb>
+      <p class="text-sm text-muted">
         Organize the library collection by category.
       </p>
     </div>

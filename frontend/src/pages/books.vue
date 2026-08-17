@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, type Ref, watch } from 'vue'
 import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
-import type { SelectMenuItem, FormError } from '@nuxt/ui'
+import type { SelectMenuItem, FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
   createBook,
   deleteBook,
@@ -14,6 +14,11 @@ import {
 import { fetchCategories, type Category } from '../services/categories'
 import { fetchAuthors, type Author } from '../services/authors'
 import { ApiError } from '../services/api'
+
+const breadcrumbItems = ref<BreadcrumbItem[]>([
+  { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
+  { label: 'Books', icon: 'i-lucide-book-open' }
+])
 
 const rows: Ref<Book[]> = ref([])
 const categories: Ref<Category[]> = ref([])
@@ -283,11 +288,27 @@ const copiesUi = {
 <template>
   <div class="flex min-h-0 flex-1 flex-col">
     <div class="mb-4">
-
-      <h1 class="font-display text-[28px] font-semibold leading-9 tracking-tight text-highlighted">
-        Books
-      </h1>
-      <p class="mt-1 text-sm text-muted">
+      <UBreadcrumb class="mb-2" :items="breadcrumbItems">
+        <template #item="{ item }">
+          <span
+            :class="[
+              'flex items-center gap-1.5 text-sm transition-colors',
+              item.to ? 'text-muted hover:text-highlighted cursor-pointer' : 'font-semibold text-highlighted'
+            ]"
+          >
+            <UIcon
+              v-if="item.icon"
+              :name="item.icon"
+              class="size-4 text-muted"
+            />
+            {{ item.label }}
+          </span>
+        </template>
+        <template #separator>
+          <UIcon name="i-lucide-chevron-right" class="size-3.5 text-muted" />
+        </template>
+      </UBreadcrumb>
+      <p class="text-sm text-muted">
         Manage and organize all library books.
       </p>
     </div>

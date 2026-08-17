@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, type Ref } from 'vue'
 import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
-import type { FormError } from '@nuxt/ui'
+import type { FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
   createAuthor,
   deleteAuthor,
@@ -11,6 +11,11 @@ import {
   type Author
 } from '../services/authors'
 import { ApiError } from '../services/api'
+
+const breadcrumbItems = ref<BreadcrumbItem[]>([
+  { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
+  { label: 'Authors', icon: 'i-lucide-user' }
+])
 
 const rows: Ref<Author[]> = ref([])
 const gridApi = ref<GridApi<Author> | null>(null)
