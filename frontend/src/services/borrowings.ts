@@ -1,4 +1,4 @@
-import { api, isBackendUnavailable } from './api'
+import { api, withFallback } from './api'
 import * as mock from './mock'
 import type { Book } from './books'
 
@@ -69,22 +69,18 @@ export function formatDate(dateStr: string | null): string {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-export async function fetchBorrowings(): Promise<Borrowing[]> {
-  try {
+export const fetchBorrowings = withFallback(
+  async () => {
     const list = await api.get<BorrowResponseDto[]>('/borrow')
     return list.map(toBorrowing)
-  } catch (error) {
-    if (isBackendUnavailable(error)) return mock.fetchBorrowings()
-    throw error
-  }
-}
+  },
+  () => mock.fetchBorrowings()
+)
 
-export async function borrowBook(bookId: number): Promise<Borrowing> {
-  try {
+export const borrowBook = withFallback(
+  async (bookId: number) => {
     const dto = await api.post<BorrowResponseDto>(`/borrow/${bookId}`, undefined)
     return toBorrowing(dto)
-  } catch (error) {
-    if (isBackendUnavailable(error)) return mock.borrowBook(bookId)
-    throw error
-  }
-}
+  },
+  (bookId: number) => mock.borrowBook(bookId)
+)

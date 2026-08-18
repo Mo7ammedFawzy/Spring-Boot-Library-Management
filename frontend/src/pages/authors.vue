@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue'
-import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
+import { ref, watch } from 'vue'
+import type { ColDef } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
 import type { FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
@@ -10,40 +10,36 @@ import {
   updateAuthor,
   type Author
 } from '../services/authors'
-import { ApiError } from '../services/api'
+import { useCrudPage } from '../composables/useCrudPage'
 
 const breadcrumbItems = ref<BreadcrumbItem[]>([
   { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
   { label: 'Authors', icon: 'i-lucide-user' }
 ])
 
-const rows: Ref<Author[]> = ref([])
-const gridApi = ref<GridApi<Author> | null>(null)
-const search = ref('')
-const loadError = ref('')
-
-async function loadAuthors() {
-  loadError.value = ''
-  try {
-    rows.value = await fetchAuthors()
-  } catch (e) {
-    loadError.value = e instanceof ApiError ? e.message : 'Failed to load authors.'
-  }
+const fieldUi = {
+  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 
-onMounted(loadAuthors)
+function validateName(state: { name: string }): FormError[] {
+  const errors: FormError[] = []
+  if (!state.name.trim()) {
+    errors.push({ name: 'name', message: 'Name is required' })
+  }
+  return errors
+}
 
-function getRowId(params: GetRowIdParams) {
+function getRowId(params: any) {
   return String((params.data as Author).id)
 }
 
-const columns: ColDef<Author>[] = [
+const columns: ColDef[] = [
   {
     headerName: '#',
     sortable: false,
     filter: false,
     width: 48,
-    valueGetter: (params) => (params.node?.rowIndex ?? 0) + 1,
+    valueGetter: (params: any) => (params.node?.rowIndex ?? 0) + 1,
     cellStyle: { textAlign: 'center' },
     cellClass: 'text-dimmed'
   },
@@ -51,7 +47,7 @@ const columns: ColDef<Author>[] = [
     field: 'name',
     headerName: 'Name',
     flex: 2,
-    cellStyle: { fontWeight: 500 },
+    cellStyle: { fontWeight: '500' },
     cellClass: 'text-highlighted'
   },
   {
@@ -63,93 +59,59 @@ const columns: ColDef<Author>[] = [
     headerClass: 'ag-right-aligned-header',
     cellRenderer: ActionsCell,
     cellRendererParams: {
-      onEdit: (params: ICellRendererParams) => openEdit(params.data as Author),
-      onDelete: (params: ICellRendererParams) => openDelete(params.data as Author)
+      onEdit: (params: any) => openEdit(params.data as Author),
+      onDelete: (params: any) => openDelete(params.data as Author)
     }
   }
 ]
 
-const formOpen = ref(false)
-const editingAuthor: Ref<Author | null> = ref(null)
-const saving = ref(false)
-const formError = ref('')
-const authorForm = ref<{ submit: () => Promise<void> } | null>(null)
+const {
+  rows,
+  gridApi,
+  search,
+  loadError,
+  formOpen,
+  editingItem,
+  saving,
+  formError,
+  entityForm,
+  deleteTarget,
+  deleting,
+  deleteError,
+  deleteModalOpen,
+  openAdd,
+  openEdit,
+  setFormState,
+  submitForm,
+  openDelete,
+  confirmDelete
+} = useCrudPage<Author, { name: string }>({
+  fetchFn: fetchAuthors,
+  createFn: createAuthor,
+  updateFn: updateAuthor,
+  deleteFn: deleteAuthor,
+  getRowId,
+  columns,
+  validate: validateName,
+  toInput: (state: { name: string }) => ({ name: state.name.trim() }),
+  entityName: 'author'
+})
+
 const name = ref('')
 
-function openAdd() {
-  editingAuthor.value = null
-  name.value = ''
-  formError.value = ''
-  formOpen.value = true
-}
-
-function openEdit(author: Author) {
-  editingAuthor.value = author
-  name.value = author.name
-  formError.value = ''
-  formOpen.value = true
-}
-
-function validateName(state: { name: string }): FormError[] {
-  const errors: FormError[] = []
-  if (!state.name.trim()) {
-    errors.push({ name: 'name', message: 'Name is required' })
-  }
-  return errors
-}
-
-async function submitForm() {
-  saving.value = true
-  formError.value = ''
-  try {
-    if (editingAuthor.value) {
-      await updateAuthor(editingAuthor.value.id, { name: name.value.trim() })
+watch(formOpen, (open: boolean) => {
+  if (open) {
+    if (editingItem.value) {
+      name.value = (editingItem.value as Author).name
     } else {
-      await createAuthor({ name: name.value.trim() })
+      name.value = ''
     }
-    await loadAuthors()
-    formOpen.value = false
-  } catch (e) {
-    formError.value = e instanceof ApiError ? e.message : 'Failed to save author.'
-  } finally {
-    saving.value = false
-  }
-}
-
-const deleteTarget: Ref<Author | null> = ref(null)
-const deleting = ref(false)
-const deleteError = ref('')
-
-function openDelete(author: Author) {
-  deleteTarget.value = author
-  deleteError.value = ''
-}
-
-const deleteModalOpen = computed({
-  get: () => deleteTarget.value !== null,
-  set: (val) => {
-    if (!val) deleteTarget.value = null
   }
 })
 
-async function confirmDelete() {
-  if (!deleteTarget.value) return
-  deleting.value = true
-  deleteError.value = ''
-  try {
-    await deleteAuthor(deleteTarget.value.id)
-    await loadAuthors()
-    deleteTarget.value = null
-  } catch (e) {
-    deleteError.value = e instanceof ApiError ? e.message : 'Failed to delete author.'
-  } finally {
-    deleting.value = false
-  }
-}
-
-const fieldUi = {
-  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
-}
+watch(name, (val: string) => {
+  setFormState({ name: val })
+})
 </script>
 
 <template>
@@ -203,7 +165,7 @@ const fieldUi = {
         :rows="rows"
         :columns="columns"
         :quick-filter-text="search"
-        :get-row-id="getRowId"
+        :get-row-id="(params) => String((params.data as Author).id)"
         height="100%"
       />
     </div>
@@ -227,10 +189,10 @@ const fieldUi = {
               </div>
               <div>
                 <h2 class="font-display text-[20px] font-semibold leading-tight text-highlighted">
-                  {{ editingAuthor ? 'Edit Author' : 'Add Author' }}
+                  {{ editingItem ? 'Edit Author' : 'Add Author' }}
                 </h2>
                 <p class="text-xs font-medium text-muted">
-                  {{ editingAuthor ? 'Update author name' : 'Add a new author to your library' }}
+                  {{ editingItem ? 'Update author name' : 'Add a new author to your library' }}
                 </p>
               </div>
             </div>
@@ -257,7 +219,7 @@ const fieldUi = {
             </div>
 
             <UForm
-              ref="authorForm"
+              ref="entityForm"
               :state="{ name }"
               :validate="validateName"
               class="flex flex-col gap-2"
@@ -291,13 +253,13 @@ const fieldUi = {
             <UButton
               color="primary"
               variant="solid"
-              :icon="editingAuthor ? 'i-lucide-save' : 'i-lucide-user'"
+              :icon="editingItem ? 'i-lucide-save' : 'i-lucide-user'"
               size="lg"
               class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
-              @click="authorForm?.submit()"
+              @click="entityForm?.submit()"
             >
-              {{ editingAuthor ? 'Save Changes' : 'Add Author' }}
+              {{ editingItem ? 'Save Changes' : 'Add Author' }}
             </UButton>
           </div>
         </div>

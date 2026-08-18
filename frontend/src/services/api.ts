@@ -90,3 +90,19 @@ export const api = {
   put: <T>(path: string, body: unknown) => request<T>(path, { method: 'PUT', body: JSON.stringify(body) }),
   delete: <T>(path: string) => request<T>(path, { method: 'DELETE' })
 }
+
+export function withFallback<TArgs extends unknown[], T>(
+  apiFn: (...args: TArgs) => Promise<T>,
+  mockFn: (...args: TArgs) => T | Promise<T>
+): (...args: TArgs) => Promise<T> {
+  return async (...args: TArgs) => {
+    try {
+      return await apiFn(...args)
+    } catch (error) {
+      if (isBackendUnavailable(error)) {
+        return await mockFn(...args)
+      }
+      throw error
+    }
+  }
+}

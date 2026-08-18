@@ -7,8 +7,9 @@ import org.library.exception.*;
 import org.library.mapper.BorrowMapper;
 import org.library.repository.*;
 import org.library.service.BorrowService;
-import org.library.utils.CurrentUserService;
+import org.library.service.UserContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
@@ -21,14 +22,16 @@ public class BorrowServiceImpl implements BorrowService
 
 	private final BookRepository bookRepository;
 	private final BorrowRecordRepository borrowRecordRepository;
+	private final UserContext userContext;
 
 	@Override
+	@Transactional
 	public BorrowResponse borrow(Long id)
 	{
 		Book book = bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
 		if (!checkIfBookIsAvailable(book))
 			throw new BookUnavailableException();
-		User user = CurrentUserService.getCurrentUser();
+		User user = userContext.getCurrentUser();
 		LocalDate now = LocalDate.now();
 		Long currentBookCopies = book.getAvailableCopies();
 		book.setAvailableCopies(currentBookCopies - 1);
@@ -46,15 +49,15 @@ public class BorrowServiceImpl implements BorrowService
 	}
 
 	@Override
+	@Transactional
 	public BorrowResponse returnBook(Long id)
 	{
 			// make sure the book exist , and the book has a borrowRecord with current userId
 		//after that add a copy in book availableCopies
 		Book book = bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
-		User user = CurrentUserService.getCurrentUser();
-		BorrowRecord borrowRecord = borrowRecordRepository.findOneByUserAndBook(user, book);
-		if (ObjectUtils.isEmpty(borrowRecord))
-			throw new RuntimeException("Book does not have a borrow");
+		User user = userContext.getCurrentUser();
+		BorrowRecord borrowRecord = borrowRecordRepository.findOneByUserAndBook(user, book)
+				.orElseThrow(BorrowNotFoundException::new);
 		borrowRecord.setReturnDate(LocalDate.now());
 		borrowRecordRepository.save(borrowRecord);
 		book.setAvailableCopies(book.getAvailableCopies()+1);

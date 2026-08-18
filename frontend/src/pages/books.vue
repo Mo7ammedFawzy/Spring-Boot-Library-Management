@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref, watch } from 'vue'
-import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
+import { computed, onMounted, ref, watch } from 'vue'
+import type { ColDef, GetRowIdParams } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
-import type { SelectMenuItem, FormError, BreadcrumbItem } from '@nuxt/ui'
+import type { FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
   createBook,
   deleteBook,
@@ -13,42 +13,22 @@ import {
 } from '../services/books'
 import { fetchCategories, type Category } from '../services/categories'
 import { fetchAuthors, type Author } from '../services/authors'
-import { ApiError } from '../services/api'
+import { useCrudPage } from '../composables/useCrudPage'
 
 const breadcrumbItems = ref<BreadcrumbItem[]>([
   { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
   { label: 'Books', icon: 'i-lucide-book-open' }
 ])
 
-const rows: Ref<Book[]> = ref([])
-const categories: Ref<Category[]> = ref([])
-const authors: Ref<Author[]> = ref([])
-const gridApi = ref<GridApi<Book> | null>(null)
-const search = ref('')
-const loadError = ref('')
-
+const categories = ref<Category[]>([])
+const authors = ref<Author[]>([])
 const categoryFilters = ref<string[]>([])
-
-async function loadBooks() {
-  rows.value = await fetchBooks()
-}
 
 async function loadOptions() {
   const [cats, auths] = await Promise.all([fetchCategories(), fetchAuthors()])
   categories.value = cats
   authors.value = auths
 }
-
-async function loadAll() {
-  loadError.value = ''
-  try {
-    await Promise.all([loadBooks(), loadOptions()])
-  } catch (e) {
-    loadError.value = e instanceof ApiError ? e.message : 'Failed to load books.'
-  }
-}
-
-onMounted(loadAll)
 
 function getRowId(params: GetRowIdParams) {
   return String((params.data as Book).id)
@@ -98,11 +78,124 @@ const columns: ColDef<Book>[] = [
     headerClass: 'ag-right-aligned-header',
     cellRenderer: ActionsCell,
     cellRendererParams: {
-      onEdit: (params: ICellRendererParams) => openEdit(params.data as Book),
-      onDelete: (params: ICellRendererParams) => openDelete(params.data as Book)
+      onEdit: (params: any) => openEdit(params.data as Book),
+      onDelete: (params: any) => openDelete(params.data as Book)
     }
   }
 ]
+
+interface BookFormState {
+  title: string
+  description: string
+  categoryId: number | undefined
+  authorIds: number[]
+  availableCopies: number
+}
+
+function validateBook(state: BookFormState): FormError[] {
+  const errors: FormError[] = []
+  if (!state.title.trim()) {
+    errors.push({ name: 'title', message: 'Title is required' })
+  }
+  if (!state.description.trim()) {
+    errors.push({ name: 'description', message: 'Description is required' })
+  } else if (state.description.trim().length < 10) {
+    errors.push({ name: 'description', message: 'Description must be at least 10 characters' })
+  }
+  if (state.categoryId == null) {
+    errors.push({ name: 'categoryId', message: 'Category is required' })
+  }
+  if (state.authorIds.length === 0) {
+    errors.push({ name: 'authorIds', message: 'At least one author is required' })
+  }
+  return errors
+}
+
+function toInput(state: BookFormState, editingItem: Book | null): BookInput {
+  return {
+    title: state.title.trim(),
+    description: state.description.trim(),
+    availableCopies: Number(state.availableCopies) || 1,
+    categoryId: state.categoryId as number,
+    authorIds: state.authorIds
+  }
+}
+
+const {
+  rows,
+  gridApi,
+  search,
+  loadError,
+  formOpen,
+  editingItem,
+  saving,
+  formError,
+  entityForm,
+  deleteTarget,
+  deleting,
+  deleteError,
+  deleteModalOpen,
+  load,
+  openAdd,
+  openEdit,
+  setFormState,
+  submitForm,
+  openDelete,
+  confirmDelete
+} = useCrudPage<Book, BookInput>({
+  fetchFn: fetchBooks,
+  createFn: createBook,
+  updateFn: updateBook,
+  deleteFn: deleteBook,
+  getRowId,
+  columns,
+  validate: validateBook,
+  toInput,
+  entityName: 'book'
+})
+
+const form = ref<BookFormState>({
+  title: '',
+  description: '',
+  categoryId: undefined,
+  authorIds: [],
+  availableCopies: 1
+})
+
+const categoryOptions = computed(() =>
+  categories.value.map((category: Category) => ({ label: category.name, value: category.id }))
+)
+
+const authorOptions = computed(() =>
+  authors.value.map((author: Author) => ({ label: author.name, value: author.id }))
+)
+
+watch(formOpen, (open: boolean) => {
+  if (open) {
+    if (editingItem.value) {
+      const book = editingItem.value as Book
+      form.value = {
+        title: book.title,
+        description: book.description,
+        categoryId: book.category.id,
+        authorIds: book.authors.map((author: Author) => author.id),
+        availableCopies: book.availableCopies
+      }
+    } else {
+      form.value = {
+        title: '',
+        description: '',
+        categoryId: categories.value[0]?.id ?? undefined,
+        authorIds: [],
+        availableCopies: 1
+      }
+    }
+  }
+})
+
+watch(form, (val) => {
+  setFormState(val)
+}, { deep: true })
 
 function applyFilters() {
   const api = gridApi.value
@@ -125,114 +218,10 @@ function applyFilters() {
   api.onFilterChanged()
 }
 
-watch(categoryFilters, applyFilters)
+watch(categoryFilters, () => applyFilters())
 
 function resetFilters() {
   categoryFilters.value = []
-}
-
-interface BookFormState {
-  title: string
-  description: string
-  categoryId: number | null
-  authorIds: number[]
-  availableCopies: number
-}
-
-const formOpen = ref(false)
-const editingBook: Ref<Book | null> = ref(null)
-const saving = ref(false)
-const formError = ref('')
-const bookForm = ref<{ submit: () => Promise<void> } | null>(null)
-
-const form = ref<BookFormState>({
-  title: '',
-  description: '',
-  categoryId: null,
-  authorIds: [],
-  availableCopies: 1
-})
-
-const categoryOptions = computed<SelectMenuItem[]>(() =>
-  categories.value.map((category) => ({ label: category.name, value: category.id }))
-)
-
-const authorOptions = computed<SelectMenuItem[]>(() =>
-  authors.value.map((author) => ({ label: author.name, value: author.id }))
-)
-
-function openAdd() {
-  editingBook.value = null
-  form.value = {
-    title: '',
-    description: '',
-    categoryId: categories.value[0]?.id ?? null,
-    authorIds: [],
-    availableCopies: 1
-  }
-  formError.value = ''
-  formOpen.value = true
-}
-
-function openEdit(book: Book) {
-  editingBook.value = book
-  form.value = {
-    title: book.title,
-    description: book.description,
-    categoryId: book.category.id,
-    authorIds: book.authors.map((author) => author.id),
-    availableCopies: book.availableCopies
-  }
-  formError.value = ''
-  formOpen.value = true
-}
-
-function validateBook(state: BookFormState): FormError[] {
-  const errors: FormError[] = []
-  if (!state.title.trim()) {
-    errors.push({ name: 'title', message: 'Title is required' })
-  }
-  if (!state.description.trim()) {
-    errors.push({ name: 'description', message: 'Description is required' })
-  } else if (state.description.trim().length < 10) {
-    errors.push({ name: 'description', message: 'Description must be at least 10 characters' })
-  }
-  if (state.categoryId == null) {
-    errors.push({ name: 'categoryId', message: 'Category is required' })
-  }
-  if (state.authorIds.length === 0) {
-    errors.push({ name: 'authorIds', message: 'At least one author is required' })
-  }
-  return errors
-}
-
-function toInput(state: BookFormState): BookInput {
-  return {
-    title: state.title.trim(),
-    description: state.description.trim(),
-    availableCopies: Number(state.availableCopies) || 1,
-    categoryId: state.categoryId as number,
-    authorIds: state.authorIds
-  }
-}
-
-async function submitForm() {
-  saving.value = true
-  formError.value = ''
-  try {
-    const input = toInput(form.value)
-    if (editingBook.value) {
-      await updateBook(editingBook.value.id, input)
-    } else {
-      await createBook(input)
-    }
-    await loadBooks()
-    formOpen.value = false
-  } catch (e) {
-    formError.value = e instanceof ApiError ? e.message : 'Failed to save book.'
-  } finally {
-    saving.value = false
-  }
 }
 
 function incrementCopies() {
@@ -243,36 +232,11 @@ function decrementCopies() {
   form.value.availableCopies = Math.max(1, (Number(form.value.availableCopies) || 1) - 1)
 }
 
-const deleteTarget: Ref<Book | null> = ref(null)
-const deleting = ref(false)
-const deleteError = ref('')
-
-function openDelete(book: Book) {
-  deleteTarget.value = book
-  deleteError.value = ''
+async function loadAll() {
+  await Promise.all([load(), loadOptions()])
 }
 
-const deleteModalOpen = computed({
-  get: () => deleteTarget.value !== null,
-  set: (val) => {
-    if (!val) deleteTarget.value = null
-  }
-})
-
-async function confirmDelete() {
-  if (!deleteTarget.value) return
-  deleting.value = true
-  deleteError.value = ''
-  try {
-    await deleteBook(deleteTarget.value.id)
-    await loadBooks()
-    deleteTarget.value = null
-  } catch (e) {
-    deleteError.value = e instanceof ApiError ? e.message : 'Failed to delete book.'
-  } finally {
-    deleting.value = false
-  }
-}
+onMounted(loadAll)
 
 const fieldUi = {
   base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
@@ -399,8 +363,8 @@ const copiesUi = {
 
     <UModal
       v-model:open="formOpen"
-      :title="editingBook ? 'Edit Book' : 'Add Book'"
-      :description="editingBook ? 'Update book details' : 'Add a new book to your library'"
+      :title="editingItem ? 'Edit Book' : 'Add Book'"
+      :description="editingItem ? 'Update book details' : 'Add a new book to your library'"
       :ui="{
         overlay: '!bg-black/20 backdrop-blur-sm',
         content: '!max-w-2xl !rounded-xl !bg-(--ui-bg-card) !shadow-[0_8px_32px_rgba(0,0,0,0.04)] !ring-0 border border-(--ui-border)'
@@ -418,10 +382,10 @@ const copiesUi = {
               </div>
               <div>
                 <h2 class="font-display text-[20px] font-semibold leading-tight text-highlighted">
-                  {{ editingBook ? 'Edit Book' : 'Add Book' }}
+                  {{ editingItem ? 'Edit Book' : 'Add Book' }}
                 </h2>
                 <p class="text-xs font-medium text-muted">
-                  {{ editingBook ? 'Update book details' : 'Add a new book to your library' }}
+                  {{ editingItem ? 'Update book details' : 'Add a new book to your library' }}
                 </p>
               </div>
             </div>
@@ -448,7 +412,7 @@ const copiesUi = {
             </div>
 
             <UForm
-              ref="bookForm"
+              ref="entityForm"
               :state="form"
               :validate="validateBook"
               class="flex flex-col gap-6"
@@ -584,13 +548,13 @@ const copiesUi = {
             <UButton
               color="primary"
               variant="solid"
-              :icon="editingBook ? 'i-lucide-save' : 'i-lucide-book-open'"
+              :icon="editingItem ? 'i-lucide-save' : 'i-lucide-book-open'"
               size="lg"
               class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
-              @click="bookForm?.submit()"
+              @click="entityForm?.submit()"
             >
-              {{ editingBook ? 'Save Changes' : 'Add Book' }}
+              {{ editingItem ? 'Save Changes' : 'Add Book' }}
             </UButton>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { api, clearToken, isAuthenticated, isBackendUnavailable, setToken } from './api'
+import { api, clearToken, isAuthenticated, withFallback, setToken } from './api'
 
 interface AuthResponse {
   token: string
@@ -17,31 +17,25 @@ export interface RegisterInput {
 
 const MOCK_TOKEN = 'mock-athenaeum-token'
 
-export async function login(input: LoginInput): Promise<void> {
-  try {
+export const login = withFallback(
+  async (input: LoginInput) => {
     const res = await api.post<AuthResponse>('/auth/login', input)
     setToken(res.token)
-  } catch (error) {
-    if (isBackendUnavailable(error)) {
-      setToken(MOCK_TOKEN)
-      return
-    }
-    throw error
+  },
+  async (_input: LoginInput) => {
+    setToken(MOCK_TOKEN)
   }
-}
+)
 
-export async function register(input: RegisterInput): Promise<void> {
-  try {
+export const register = withFallback(
+  async (input: RegisterInput) => {
     const res = await api.post<AuthResponse>('/auth/register', input)
     setToken(res.token)
-  } catch (error) {
-    if (isBackendUnavailable(error)) {
-      setToken(MOCK_TOKEN)
-      return
-    }
-    throw error
+  },
+  async (_input: RegisterInput) => {
+    setToken(MOCK_TOKEN)
   }
-}
+)
 
 export function logout(): void {
   clearToken()

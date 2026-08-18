@@ -1,4 +1,4 @@
-import { api, isBackendUnavailable } from './api'
+import { api, withFallback } from './api'
 import * as mock from './mock'
 import type { Author } from './authors'
 import type { Category } from './categories'
@@ -20,41 +20,22 @@ export interface BookInput {
   authorIds: number[]
 }
 
-export async function fetchBooks(): Promise<Book[]> {
-  try {
-    return await api.get<Book[]>('/books')
-  } catch (error) {
-    if (isBackendUnavailable(error)) return mock.fetchBooks()
-    throw error
-  }
-}
+export const fetchBooks = withFallback(
+  () => api.get<Book[]>('/books'),
+  () => mock.fetchBooks()
+)
 
-export async function createBook(input: BookInput): Promise<Book> {
-  try {
-    return await api.post<Book>('/books', input)
-  } catch (error) {
-    if (isBackendUnavailable(error)) return mock.createBook(input)
-    throw error
-  }
-}
+export const createBook = withFallback(
+  (input: BookInput) => api.post<Book>('/books', input),
+  (input: BookInput) => mock.createBook(input)
+)
 
-export async function updateBook(id: number, input: BookInput): Promise<Book> {
-  try {
-    return await api.put<Book>(`/books/${id}`, input)
-  } catch (error) {
-    if (isBackendUnavailable(error)) return mock.updateBook(id, input)
-    throw error
-  }
-}
+export const updateBook = withFallback(
+  (id: number, input: BookInput) => api.put<Book>(`/books/${id}`, input),
+  (id: number, input: BookInput) => mock.updateBook(id, input)
+)
 
-export async function deleteBook(id: number): Promise<void> {
-  try {
-    await api.delete<void>(`/books/${id}`)
-  } catch (error) {
-    if (isBackendUnavailable(error)) {
-      mock.deleteBook(id)
-      return
-    }
-    throw error
-  }
-}
+export const deleteBook = withFallback(
+  (id: number) => api.delete<void>(`/books/${id}`),
+  (id: number) => { mock.deleteBook(id); return Promise.resolve() }
+)

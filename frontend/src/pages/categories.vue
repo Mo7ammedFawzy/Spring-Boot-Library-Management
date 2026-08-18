@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue'
-import type { ColDef, GetRowIdParams, GridApi, ICellRendererParams } from 'ag-grid-community'
+import { ref, watch } from 'vue'
+import type { ColDef } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
 import type { FormError, BreadcrumbItem } from '@nuxt/ui'
 import {
@@ -10,40 +10,36 @@ import {
   updateCategory,
   type Category
 } from '../services/categories'
-import { ApiError } from '../services/api'
+import { useCrudPage } from '../composables/useCrudPage'
 
 const breadcrumbItems = ref<BreadcrumbItem[]>([
   { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
   { label: 'Categories', icon: 'i-lucide-folder-open' }
 ])
 
-const rows: Ref<Category[]> = ref([])
-const gridApi = ref<GridApi<Category> | null>(null)
-const search = ref('')
-const loadError = ref('')
-
-async function loadCategories() {
-  loadError.value = ''
-  try {
-    rows.value = await fetchCategories()
-  } catch (e) {
-    loadError.value = e instanceof ApiError ? e.message : 'Failed to load categories.'
-  }
+const fieldUi = {
+  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
 }
 
-onMounted(loadCategories)
+function validateName(state: { name: string }): FormError[] {
+  const errors: FormError[] = []
+  if (!state.name.trim()) {
+    errors.push({ name: 'name', message: 'Name is required' })
+  }
+  return errors
+}
 
-function getRowId(params: GetRowIdParams) {
+function getRowId(params: any) {
   return String((params.data as Category).id)
 }
 
-const columns: ColDef<Category>[] = [
+const columns: ColDef[] = [
   {
     headerName: '#',
     sortable: false,
     filter: false,
     width: 48,
-    valueGetter: (params) => (params.node?.rowIndex ?? 0) + 1,
+    valueGetter: (params: any) => (params.node?.rowIndex ?? 0) + 1,
     cellStyle: { textAlign: 'center' },
     cellClass: 'text-dimmed'
   },
@@ -51,7 +47,7 @@ const columns: ColDef<Category>[] = [
     field: 'name',
     headerName: 'Name',
     flex: 2,
-    cellStyle: { fontWeight: 500 },
+    cellStyle: { fontWeight: '500' },
     cellClass: 'text-highlighted'
   },
   {
@@ -63,93 +59,59 @@ const columns: ColDef<Category>[] = [
     headerClass: 'ag-right-aligned-header',
     cellRenderer: ActionsCell,
     cellRendererParams: {
-      onEdit: (params: ICellRendererParams) => openEdit(params.data as Category),
-      onDelete: (params: ICellRendererParams) => openDelete(params.data as Category)
+      onEdit: (params: any) => openEdit(params.data as Category),
+      onDelete: (params: any) => openDelete(params.data as Category)
     }
   }
 ]
 
-const formOpen = ref(false)
-const editingCategory: Ref<Category | null> = ref(null)
-const saving = ref(false)
-const formError = ref('')
-const categoryForm = ref<{ submit: () => Promise<void> } | null>(null)
+const {
+  rows,
+  gridApi,
+  search,
+  loadError,
+  formOpen,
+  editingItem,
+  saving,
+  formError,
+  entityForm,
+  deleteTarget,
+  deleting,
+  deleteError,
+  deleteModalOpen,
+  openAdd,
+  openEdit,
+  setFormState,
+  submitForm,
+  openDelete,
+  confirmDelete
+} = useCrudPage<Category, { name: string }>({
+  fetchFn: fetchCategories,
+  createFn: createCategory,
+  updateFn: updateCategory,
+  deleteFn: deleteCategory,
+  getRowId,
+  columns,
+  validate: validateName,
+  toInput: (state: { name: string }) => ({ name: state.name.trim() }),
+  entityName: 'category'
+})
+
 const name = ref('')
 
-function openAdd() {
-  editingCategory.value = null
-  name.value = ''
-  formError.value = ''
-  formOpen.value = true
-}
-
-function openEdit(category: Category) {
-  editingCategory.value = category
-  name.value = category.name
-  formError.value = ''
-  formOpen.value = true
-}
-
-function validateName(state: { name: string }): FormError[] {
-  const errors: FormError[] = []
-  if (!state.name.trim()) {
-    errors.push({ name: 'name', message: 'Name is required' })
-  }
-  return errors
-}
-
-async function submitForm() {
-  saving.value = true
-  formError.value = ''
-  try {
-    if (editingCategory.value) {
-      await updateCategory(editingCategory.value.id, { name: name.value.trim() })
+watch(formOpen, (open: boolean) => {
+  if (open) {
+    if (editingItem.value) {
+      name.value = (editingItem.value as Category).name
     } else {
-      await createCategory({ name: name.value.trim() })
+      name.value = ''
     }
-    await loadCategories()
-    formOpen.value = false
-  } catch (e) {
-    formError.value = e instanceof ApiError ? e.message : 'Failed to save category.'
-  } finally {
-    saving.value = false
-  }
-}
-
-const deleteTarget: Ref<Category | null> = ref(null)
-const deleting = ref(false)
-const deleteError = ref('')
-
-function openDelete(category: Category) {
-  deleteTarget.value = category
-  deleteError.value = ''
-}
-
-const deleteModalOpen = computed({
-  get: () => deleteTarget.value !== null,
-  set: (val) => {
-    if (!val) deleteTarget.value = null
   }
 })
 
-async function confirmDelete() {
-  if (!deleteTarget.value) return
-  deleting.value = true
-  deleteError.value = ''
-  try {
-    await deleteCategory(deleteTarget.value.id)
-    await loadCategories()
-    deleteTarget.value = null
-  } catch (e) {
-    deleteError.value = e instanceof ApiError ? e.message : 'Failed to delete category.'
-  } finally {
-    deleting.value = false
-  }
-}
-
-const fieldUi = {
-  base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
-}
+watch(name, (val: string) => {
+  setFormState({ name: val })
+})
 </script>
 
 <template>
@@ -220,7 +182,7 @@ const fieldUi = {
         :rows="rows"
         :columns="columns"
         :quick-filter-text="search"
-        :get-row-id="getRowId"
+        :get-row-id="(params) => String((params.data as Category).id)"
         height="100%"
       />
     </div>
@@ -244,10 +206,10 @@ const fieldUi = {
               </div>
               <div>
                 <h2 class="font-display text-[20px] font-semibold leading-tight text-highlighted">
-                  {{ editingCategory ? 'Edit Category' : 'Add Category' }}
+                  {{ editingItem ? 'Edit Category' : 'Add Category' }}
                 </h2>
                 <p class="text-xs font-medium text-muted">
-                  {{ editingCategory ? 'Update category name' : 'Add a new category to your library' }}
+                  {{ editingItem ? 'Update category name' : 'Add a new category to your library' }}
                 </p>
               </div>
             </div>
@@ -274,7 +236,7 @@ const fieldUi = {
             </div>
 
             <UForm
-              ref="categoryForm"
+              ref="entityForm"
               :state="{ name }"
               :validate="validateName"
               class="flex flex-col gap-2"
@@ -308,13 +270,13 @@ const fieldUi = {
             <UButton
               color="primary"
               variant="solid"
-              :icon="editingCategory ? 'i-lucide-save' : 'i-lucide-tag'"
+              :icon="editingItem ? 'i-lucide-save' : 'i-lucide-tag'"
               size="lg"
               class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
               :loading="saving"
-              @click="categoryForm?.submit()"
+              @click="entityForm?.submit()"
             >
-              {{ editingCategory ? 'Save Changes' : 'Add Category' }}
+              {{ editingItem ? 'Save Changes' : 'Add Category' }}
             </UButton>
           </div>
         </div>
