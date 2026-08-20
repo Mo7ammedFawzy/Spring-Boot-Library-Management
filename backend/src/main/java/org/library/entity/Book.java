@@ -33,4 +33,18 @@ public class Book
 	@JoinTable(name = "book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private List<Author> authors;
 
+	public void increaseAvailableCopies()
+	{
+		this.setAvailableCopies(getAvailableCopies() + 1);
+	}
+
+	public void decreaseAvailableCopies()
+	{
+		this.setAvailableCopies(getAvailableCopies() - 1);
+	}
+
+	public boolean isAvailable()
+	{
+		return getAvailableCopies() > 0;
+	}
 }
