@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface BorrowService
 {
-	BorrowResponse borrow(Long id);
+	BorrowResponse borrow(Long bookId);
 
 	List<BorrowResponse> getAllBorrows();
 
-	BorrowResponse returnBook(Long id);
+	BorrowResponse returnBook(Long borrowId);
 }

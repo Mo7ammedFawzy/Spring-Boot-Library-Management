@@ -33,4 +33,10 @@ public class GlobalExceptionHandler
 	{
 		return ApiError.ofResponse(HttpStatus.CONFLICT, exception.getMessage());
 	}
+
+	@ExceptionHandler(BookAlreadyReturnedException.class)
+	public ResponseEntity<ApiError> handleBookAlreadyReturned(BookAlreadyReturnedException exception)
+	{
+		return ApiError.ofResponse(HttpStatus.CONFLICT, exception.getMessage());
+	}
 }

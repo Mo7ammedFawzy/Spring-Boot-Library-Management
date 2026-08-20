@@ -188,3 +188,12 @@ export function borrowBook(bookId: number): Borrowing {
   borrowings.push(created)
   return created
 }
+
+export function returnBook(borrowId: number): Borrowing {
+  const record = borrowings.find((b) => b.id === borrowId)
+  if (!record) throw new Error(`Borrowing with id ${borrowId} not found`)
+  if (record.returnDate) throw new Error('Book already returned')
+  record.returnDate = dateStr(0)
+  record.book.availableCopies = record.book.availableCopies + 1
+  return { ...record, user: { ...record.user }, book: { ...record.book } }
+}

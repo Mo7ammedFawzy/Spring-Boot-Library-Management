@@ -26,16 +26,15 @@ public class BorrowServiceImpl implements BorrowService
 
 	@Override
 	@Transactional
-	public BorrowResponse borrow(Long id)
+	public BorrowResponse borrow(Long bookId)
 	{
-		Book book = bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
-		if (!checkIfBookIsAvailable(book))
+		Book book = bookRepository.findById(bookId).orElseThrow(() -> ResourceNotFoundException.create(Book.class, bookId));
+		if (!book.isAvailable())
 			throw new BookUnavailableException();
 		User user = userContext.getCurrentUser();
-		LocalDate now = LocalDate.now();
-		Long currentBookCopies = book.getAvailableCopies();
-		book.setAvailableCopies(currentBookCopies - 1);
+		book.decreaseAvailableCopies();
 		bookRepository.save(book);
+		LocalDate now = LocalDate.now();
 		BorrowRecord borrowRecord = BorrowRecord.builder().user(user).book(book).borrowDate(now).dueDate(now.plusDays(14)).build();
 		borrowRecordRepository.save(borrowRecord);
 		return BorrowMapper.toResponse(borrowRecord);
@@ -50,28 +49,20 @@ public class BorrowServiceImpl implements BorrowService
 
 	@Override
 	@Transactional
-	public BorrowResponse returnBook(Long id)
+	public BorrowResponse returnBook(Long borrowId)
 	{
-			// make sure the book exist , and the book has a borrowRecord with current userId
-		//after that add a copy in book availableCopies
-		Book book = bookRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create(Book.class, id));
-		User user = userContext.getCurrentUser();
-		BorrowRecord borrowRecord = borrowRecordRepository.findOneByUserAndBook(user, book)
-				.orElseThrow(BorrowNotFoundException::new);
+		BorrowRecord borrowRecord = borrowRecordRepository.findById(borrowId)
+				.orElseThrow(() -> ResourceNotFoundException.create(BorrowRecord.class, borrowId));
+		if (!ObjectUtils.isEmpty(borrowRecord.getReturnDate()))
+			throw new BookAlreadyReturnedException();
+
 		borrowRecord.setReturnDate(LocalDate.now());
 		borrowRecordRepository.save(borrowRecord);
-		book.setAvailableCopies(book.getAvailableCopies()+1);
-		bookRepository.save(book);
-		return BorrowMapper.toResponse(borrowRecord);
-	}
 
-	private boolean checkIfBookIsAvailable(Book book)
-	{
-		if (ObjectUtils.isEmpty(book))
-			return false;
-		else if (book.getAvailableCopies() < 1)
-			return false;
-		else
-			return true;
+		Book book = borrowRecord.getBook();
+		book.increaseAvailableCopies();
+		bookRepository.save(book);
+
+		return BorrowMapper.toResponse(borrowRecord);
 	}
 }

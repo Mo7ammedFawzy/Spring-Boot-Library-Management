@@ -5,6 +5,7 @@ import type { Borrowing } from '../../services/borrowings'
 
 interface BorrowingActionsParams extends ICellRendererParams {
   onView?: (borrowing: Borrowing) => void
+  onReturn?: (borrowing: Borrowing) => void
 }
 
 const props = defineProps<{ params: BorrowingActionsParams }>()
@@ -18,7 +19,7 @@ const items = computed(() => [
   {
     label: 'Return Book',
     icon: 'i-lucide-book-check',
-    disabled: true
+    onSelect: () => props.params.onReturn?.(props.params.data as Borrowing)
   }
 ])
 </script>

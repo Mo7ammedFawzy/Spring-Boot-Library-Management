@@ -14,6 +14,7 @@ import {
   fetchBorrowings,
   formatDate,
   getStatus,
+  returnBook,
   todayStr,
   type Borrowing,
   type BorrowingStatus
@@ -111,7 +112,8 @@ const columns: ColDef<Borrowing>[] = [
     headerClass: 'ag-right-aligned-header',
     cellRenderer: BorrowingActionsCell,
     cellRendererParams: {
-      onView: (borrowing: Borrowing) => openDetail(borrowing)
+      onView: (borrowing: Borrowing) => openDetail(borrowing),
+      onReturn: (borrowing: Borrowing) => submitReturn(borrowing)
     }
   }
 ]
@@ -204,6 +206,23 @@ async function submitBorrow() {
   }
 }
 
+const returning = ref(false)
+const returnError = ref('')
+
+async function submitReturn(borrowing: Borrowing) {
+  returning.value = true
+  returnError.value = ''
+  try {
+    await returnBook(borrowing.id)
+    await loadAll()
+    detailTarget.value = null
+  } catch (e) {
+    returnError.value = e instanceof ApiError ? e.message : 'Failed to return book.'
+  } finally {
+    returning.value = false
+  }
+}
+
 const detailTarget: Ref<Borrowing | null> = ref(null)
 const detail = computed(() => detailTarget.value)
 
@@ -238,7 +257,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
 <template>
   <div class="flex min-h-0 flex-1 flex-col">
     <div class="mb-3">
-<!--      <UBreadcrumb :items="items" />-->
+      <!--      <UBreadcrumb :items="items" />-->
 
       <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -664,6 +683,28 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
                 </div>
               </div>
             </div>
+          </div>
+
+          <div
+            v-if="detail && !detail.returnDate"
+            class="flex flex-col gap-2 border-t border-(--ui-border) px-4 py-3"
+          >
+            <UButton
+              color="primary"
+              variant="solid"
+              icon="i-lucide-book-check"
+              class="!rounded-lg"
+              :loading="returning"
+              @click="submitReturn(detail)"
+            >
+              Return Book
+            </UButton>
+            <p
+              v-if="returnError"
+              class="text-xs text-red-500"
+            >
+              {{ returnError }}
+            </p>
           </div>
         </div>
       </template>

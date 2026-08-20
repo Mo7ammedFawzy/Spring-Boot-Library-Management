@@ -84,3 +84,11 @@ export const borrowBook = withFallback(
   },
   (bookId: number) => mock.borrowBook(bookId)
 )
+
+export const returnBook = withFallback(
+  async (borrowId: number) => {
+    const dto = await api.post<BorrowResponseDto>(`/borrow/${borrowId}/return`, undefined)
+    return toBorrowing(dto)
+  },
+  (borrowId: number) => mock.returnBook(borrowId)
+)
