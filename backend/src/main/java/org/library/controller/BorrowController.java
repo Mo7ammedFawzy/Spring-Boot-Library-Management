@@ -16,10 +16,10 @@ public class BorrowController
 {
 	private final BorrowService borrowService;
 
-	@PostMapping("/{bookId}")
-	public ResponseEntity<ApiResponse<BorrowResponse>> borrow(@PathVariable Long bookId)
+	@PostMapping("/{id}")
+	public ResponseEntity<ApiResponse<BorrowResponse>> borrow(@PathVariable Long id)
 	{
-		BorrowResponse borrowResponse = borrowService.borrow(bookId);
+		BorrowResponse borrowResponse = borrowService.borrow(id);
 		return ApiResponse.okResponse(borrowResponse);
 	}
 
@@ -30,9 +30,9 @@ public class BorrowController
 		return ApiResponse.okResponse(response);
 	}
 
-	@PostMapping("/{borrowId}/return")
-	public ResponseEntity<ApiResponse<BorrowResponse>> returnBook(@PathVariable Long borrowId){
-		BorrowResponse response = borrowService.returnBook(borrowId);
+	@PostMapping("/{id}/return")
+	public ResponseEntity<ApiResponse<BorrowResponse>> returnBook(@PathVariable Long id){
+		BorrowResponse response = borrowService.returnBook(id);
 		return ApiResponse.okResponse(response);
 	}
 }
