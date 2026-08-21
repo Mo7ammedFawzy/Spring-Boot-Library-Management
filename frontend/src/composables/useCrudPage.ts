@@ -1,6 +1,7 @@
 import { computed, onMounted, ref, type Ref } from 'vue'
 import type { ColDef, GetRowIdParams, GridApi } from 'ag-grid-community'
 import type { FormError } from '@nuxt/ui'
+import { push } from 'notivue'
 import { ApiError } from '../services/api'
 
 export interface CrudPageConfig<T, TInput> {
@@ -75,8 +76,10 @@ export function useCrudPage<T, TInput>(config: CrudPageConfig<T, TInput>) {
       if (editingItem.value) {
         const id = (editingItem.value as any).id
         await config.updateFn(id, input)
+        push.success(`${config.entityName} updated successfully`)
       } else {
         await config.createFn(input)
+        push.success(`${config.entityName} created successfully`)
       }
       await load()
       formOpen.value = false
@@ -99,6 +102,7 @@ export function useCrudPage<T, TInput>(config: CrudPageConfig<T, TInput>) {
     try {
       const id = (deleteTarget.value as any).id
       await config.deleteFn(id)
+      push.success(`${config.entityName} deleted successfully`)
       await load()
       deleteTarget.value = null
     } catch (e) {

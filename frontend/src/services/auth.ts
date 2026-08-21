@@ -1,4 +1,4 @@
-import { api, clearToken, isAuthenticated, withFallback, setToken } from './api'
+import { api, clearToken, isAuthenticated, withFallback, setToken, MOCK_TOKEN } from './api'
 
 interface AuthResponse {
   token: string
@@ -14,8 +14,6 @@ export interface RegisterInput {
   email: string
   password: string
 }
-
-const MOCK_TOKEN = 'mock-athenaeum-token'
 
 export const login = withFallback(
   async (input: LoginInput) => {

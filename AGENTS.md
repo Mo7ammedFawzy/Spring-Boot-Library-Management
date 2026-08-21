@@ -72,6 +72,21 @@ When implementing from a Stitch, Figma, screenshot, or other design reference:
 - Use this project for all Athenaeum UI/design tasks.
 - When a Stitch screen is referenced, access it directly from this project.
 - Do not enumerate or search unrelated Stitch projects.
+## Stitch Instructions
+
+Get the images and code for the following Stitch project's screens:
+
+## Project
+Title: Workstation Library Manager
+ID: 6496321036061345431
+
+## Screens:
+1. Books - Athenaeum Modern (Final Polish)
+   ID: 6b350e2529e14c2781bc93fb4198a922
+2. Dashboard - Athenaeum Modern
+      ID: 96341750b8ea4155b8db5771d667b16f
+
+Use a utility like `curl -L` to download the hosted URLs.
 
 ## Verification
 
@@ -85,7 +100,8 @@ After implementation:
 6. If live verification against a running server is genuinely necessary, stop and ask the user to confirm the server is running and up to date, rather than starting or restarting it yourself.
 
 ## Documentation
-
+[opencode.jsonc](../../.config/opencode/opencode.jsonc)
+- Always use Context7 automatically when you need library/API documentation or when implementing, generating, configuring, or setting up code that depends on a library or API. Do not wait for me to ask.
 - Trust the actual code and configuration over aspirational documentation.
 - `README.md` and `backend/Tasks.md` may describe planned features that are not implemented.
 - Do not assume a feature exists because it is mentioned in documentation — verify from source code and configuration.

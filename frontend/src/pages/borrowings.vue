@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, type Ref } from 'vue'
 import type { ColDef, GetRowIdParams, GridApi } from 'ag-grid-community'
 import type { FormError, SelectMenuItem } from '@nuxt/ui'
+import { push } from 'notivue'
 import BookCell from '../components/grid/BookCell.vue'
 import MemberCell from '../components/grid/MemberCell.vue'
 import StatusCell from '../components/grid/StatusCell.vue'
@@ -12,18 +13,21 @@ import {
   BORROWING_STATUSES,
   borrowBook,
   fetchBorrowings,
+  fetchUsers,
   formatDate,
   getStatus,
   returnBook,
   todayStr,
   type Borrowing,
-  type BorrowingStatus
+  type BorrowingStatus,
+  type BorrowingUser
 } from '../services/borrowings'
 import { fetchBooks, type Book } from '../services/books'
 import { ApiError } from '../services/api'
 
 const rows: Ref<Borrowing[]> = ref([])
 const books: Ref<Book[]> = ref([])
+const users: Ref<BorrowingUser[]> = ref([])
 const gridApi = ref<GridApi<Borrowing> | null>(null)
 const search = ref('')
 const loadError = ref('')
@@ -37,9 +41,10 @@ const today = todayStr()
 async function loadAll() {
   loadError.value = ''
   try {
-    const [borrowings, bookList] = await Promise.all([fetchBorrowings(), fetchBooks()])
+    const [borrowings, bookList, userList] = await Promise.all([fetchBorrowings(), fetchBooks(), fetchUsers()])
     rows.value = borrowings
     books.value = bookList
+    users.value = userList
   } catch (e) {
     loadError.value = e instanceof ApiError ? e.message : 'Failed to load borrowings.'
   }
@@ -165,6 +170,7 @@ function resetFilters() {
 
 const addOpen = ref(false)
 const selectedBookId = ref<number | null>(null)
+const selectedUserId = ref<number | null>(null)
 const saving = ref(false)
 const formError = ref('')
 const borrowForm = ref<{ submit: () => Promise<void> } | null>(null)
@@ -176,18 +182,28 @@ const bookOptions = computed<SelectMenuItem[]>(() =>
     .map((book) => ({ label: book.title, value: book.id }))
 )
 
-const borrowState = computed(() => ({ bookId: selectedBookId.value }))
+const memberOptions = computed<SelectMenuItem[]>(() =>
+  users.value
+    .map((user) => ({ label: `${user.name} (${user.email})`, value: user.id }))
+    .sort((a, b) => String(a.label).localeCompare(String(b.label)))
+)
+
+const borrowState = computed(() => ({ bookId: selectedBookId.value, userId: selectedUserId.value }))
 
 function openAdd() {
   selectedBookId.value = null
+  selectedUserId.value = null
   formError.value = ''
   addOpen.value = true
 }
 
-function validateBorrow(state: { bookId: number | null }): FormError[] {
+function validateBorrow(state: { bookId: number | null; userId: number | null }): FormError[] {
   const errors: FormError[] = []
   if (state.bookId == null) {
     errors.push({ name: 'bookId', message: 'Select a book to borrow' })
+  }
+  if (state.userId == null) {
+    errors.push({ name: 'userId', message: 'Select a member' })
   }
   return errors
 }
@@ -196,7 +212,8 @@ async function submitBorrow() {
   saving.value = true
   formError.value = ''
   try {
-    await borrowBook(selectedBookId.value as number)
+    await borrowBook(selectedBookId.value as number, selectedUserId.value ?? undefined)
+    push.success('Book borrowed successfully')
     await loadAll()
     addOpen.value = false
   } catch (e) {
@@ -214,6 +231,7 @@ async function submitReturn(borrowing: Borrowing) {
   returnError.value = ''
   try {
     await returnBook(borrowing.id)
+    push.success('Book returned successfully')
     await loadAll()
     detailTarget.value = null
   } catch (e) {
@@ -478,7 +496,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
     <UModal
       v-model:open="addOpen"
       :title="'New Borrowing'"
-      :description="'Borrow a book to your account'"
+      :description="'Borrow a book for a member'"
       :ui="modalUi"
     >
       <template #content="{ close }">
@@ -496,7 +514,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
                   New Borrowing
                 </h2>
                 <p class="text-xs font-medium text-muted">
-                  Borrow a book to your account
+                  Borrow a book for a member
                 </p>
               </div>
             </div>
@@ -529,6 +547,25 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
               class="flex flex-col gap-6"
               @submit="submitBorrow"
             >
+              <div class="flex flex-col gap-2">
+                <label
+                  for="borrow-member"
+                  class="text-sm font-medium text-highlighted"
+                >
+                  Member <span class="text-error">*</span>
+                </label>
+                <USelectMenu
+                  id="borrow-member"
+                  v-model="selectedUserId"
+                  :items="memberOptions"
+                  value-key="value"
+                  :search-input="true"
+                  :ui="fieldUi"
+                  icon="i-lucide-user"
+                  placeholder="Select member"
+                />
+              </div>
+
               <div class="flex flex-col gap-2">
                 <label
                   for="borrow-book"

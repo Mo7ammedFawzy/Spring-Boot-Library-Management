@@ -17,9 +17,9 @@ public class BorrowController
 	private final BorrowService borrowService;
 
 	@PostMapping("/{bookId}")
-	public ResponseEntity<ApiResponse<BorrowResponse>> borrow(@PathVariable Long bookId)
+	public ResponseEntity<ApiResponse<BorrowResponse>> borrow(@PathVariable Long bookId, @RequestParam(required = false) Long userId)
 	{
-		BorrowResponse borrowResponse = borrowService.borrow(bookId);
+		BorrowResponse borrowResponse = borrowService.borrow(bookId, userId);
 		return ApiResponse.okResponse(borrowResponse);
 	}
 

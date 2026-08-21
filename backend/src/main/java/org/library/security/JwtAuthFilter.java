@@ -1,5 +1,6 @@
 package org.library.security;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,18 +36,24 @@ public class JwtAuthFilter extends OncePerRequestFilter
 			return;
 		}
 		String token = authHeader.substring(bearer.length());
-		String email = jwtUtil.extractUserName(token);
-		if (email != null && SecurityContextHolder.getContext().getAuthentication() == null)
+		try
 		{
-			UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-			if (jwtUtil.isTokenValid(token, userDetails))
+			String email = jwtUtil.extractUserName(token);
+			if (email != null && SecurityContextHolder.getContext().getAuthentication() == null)
 			{
-				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
-						userDetails.getAuthorities());
-				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authToken);
+				UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+				if (jwtUtil.isTokenValid(token, userDetails))
+				{
+					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+							userDetails.getAuthorities());
+					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authToken);
+				}
 			}
-
+		}
+		catch (JwtException | IllegalArgumentException e)
+		{
+			SecurityContextHolder.clearContext();
 		}
 		filterChain.doFilter(request, response);
 	}

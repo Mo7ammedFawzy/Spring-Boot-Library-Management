@@ -1,9 +1,44 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useColorMode, useLocalStorage } from '@vueuse/core'
+import {
+  Notivue,
+  Notification,
+  push,
+  lightTheme,
+  darkTheme,
+  type NotivueItem,
+  type NotivueTheme
+} from 'notivue'
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { checkBackendHealth } from './services/api'
 import { logout } from './services/auth'
+
+onMounted(async () => {
+  const notification = push.promise({
+    title: 'Connecting',
+    message: 'Checking the server connection...',
+    props: { compact: true }
+  })
+  const [healthy] = await Promise.all([
+    checkBackendHealth(),
+    new Promise((resolve) => setTimeout(resolve, 3000))
+  ])
+  if (healthy) {
+    notification.resolve({
+      title: 'Server connected',
+      message: 'Everything is up and running. Enjoy!',
+      props: { compact: true }
+    })
+  } else {
+    notification.reject({
+      title: 'Server not connected',
+      message: 'No worries — sample data is being used for now.',
+      props: { compact: true }
+    })
+  }
+})
 
 const route = useRoute()
 const router = useRouter()
@@ -11,6 +46,24 @@ const router = useRouter()
 const isAuthPage = computed(() => ['/login', '/register'].includes(route.path))
 
 const colorMode = useColorMode()
+
+const notivueBaseTheme = computed<NotivueTheme>(() =>
+  colorMode.value === 'dark' ? darkTheme : lightTheme
+)
+
+const notivueCompactTheme = computed<NotivueTheme>(() => ({
+  ...notivueBaseTheme.value,
+  '--nv-width': '18rem',
+  '--nv-spacing': '0.4375rem',
+  '--nv-radius': '0.5rem',
+  '--nv-icon-size': '1rem',
+  '--nv-title-size': '0.8125rem',
+  '--nv-message-size': '0.75rem'
+}))
+
+function getNotivueTheme(item: NotivueItem) {
+  return item.props?.compact === true ? notivueCompactTheme.value : notivueBaseTheme.value
+}
 
 const colorModeOptions = [
   { value: 'light', icon: 'i-lucide-sun', label: 'Light' },
@@ -281,4 +334,20 @@ function handleLogout() {
       </div>
     </UApp>
   </Suspense>
+
+  <Notivue v-slot="item">
+    <Notification
+      :item="item"
+      :theme="getNotivueTheme(item)"
+    />
+  </Notivue>
 </template>
+
+<style>
+.Notivue__notification[data-notivue='promise-reject'] {
+  --nv-bg: var(--nv-warning-bg);
+  --nv-fg: var(--nv-warning-fg);
+  --nv-accent: var(--nv-warning-accent, var(--nv-global-accent));
+  --nv-border: var(--nv-warning-border);
+}
+</style>

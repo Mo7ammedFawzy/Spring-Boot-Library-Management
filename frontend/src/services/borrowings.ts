@@ -77,12 +77,18 @@ export const fetchBorrowings = withFallback(
   () => mock.fetchBorrowings()
 )
 
+export const fetchUsers = withFallback(
+  async () => api.get<BorrowingUser[]>('/users'),
+  () => mock.fetchUsers()
+)
+
 export const borrowBook = withFallback(
-  async (bookId: number) => {
-    const dto = await api.post<BorrowResponseDto>(`/borrow/${bookId}`, undefined)
+  async (bookId: number, userId?: number) => {
+    const query = userId ? `?userId=${userId}` : ''
+    const dto = await api.post<BorrowResponseDto>(`/borrow/${bookId}${query}`, undefined)
     return toBorrowing(dto)
   },
-  (bookId: number) => mock.borrowBook(bookId)
+  (bookId: number, userId?: number) => mock.borrowBook(bookId, userId)
 )
 
 export const returnBook = withFallback(

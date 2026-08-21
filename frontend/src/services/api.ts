@@ -1,5 +1,6 @@
 const API_BASE = '/api'
 const TOKEN_KEY = 'athenaeum_token'
+export const MOCK_TOKEN = 'mock-athenaeum-token'
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY)
@@ -14,7 +15,18 @@ export function clearToken(): void {
 }
 
 export function isAuthenticated(): boolean {
-  return getToken() !== null
+  const token = getToken()
+  if (!token) {
+    return false
+  }
+  if (token === MOCK_TOKEN) {
+    return true
+  }
+  if (token.split('.').length !== 3) {
+    clearToken()
+    return false
+  }
+  return true
 }
 
 interface ApiEnvelope<T> {
@@ -48,6 +60,15 @@ export class NetworkError extends Error {
 
 export function isBackendUnavailable(error: unknown): boolean {
   return error instanceof NetworkError || (error instanceof ApiError && error.status >= 500)
+}
+
+export async function checkBackendHealth(): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE}/health`)
+    return res.ok
+  } catch {
+    return false
+  }
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {

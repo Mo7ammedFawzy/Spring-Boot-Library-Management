@@ -173,13 +173,18 @@ export function fetchBorrowings(): Borrowing[] {
   return borrowings.map((record) => ({ ...record, user: { ...record.user }, book: { ...record.book } }))
 }
 
-export function borrowBook(bookId: number): Borrowing {
+export function fetchUsers(): BorrowingUser[] {
+  return users.map((user) => ({ ...user }))
+}
+
+export function borrowBook(bookId: number, userId?: number): Borrowing {
   const target = books.find((b) => b.id === bookId)
   if (!target) throw new Error(`Book with id ${bookId} not found`)
+  const borrower = users.find((user) => user.id === userId) ?? users[0]
   target.availableCopies = Math.max(0, target.availableCopies - 1)
   const created: Borrowing = {
     id: nextId(borrowings),
-    user: { ...users[0] },
+    user: { ...borrower },
     book: { ...target },
     borrowDate: dateStr(0),
     dueDate: dateStr(14),

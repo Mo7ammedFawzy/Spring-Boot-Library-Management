@@ -22,22 +22,30 @@ public class BorrowServiceImpl implements BorrowService
 
 	private final BookRepository bookRepository;
 	private final BorrowRecordRepository borrowRecordRepository;
+	private final UserRepository userRepository;
 	private final UserContext userContext;
 
 	@Override
 	@Transactional
-	public BorrowResponse borrow(Long bookId)
+	public BorrowResponse borrow(Long bookId, Long userId)
 	{
 		Book book = bookRepository.findById(bookId).orElseThrow(() -> ResourceNotFoundException.create(Book.class, bookId));
 		if (!book.isAvailable())
 			throw new BookUnavailableException();
-		User user = userContext.getCurrentUser();
+		User user = resolveBorrower(userId);
 		book.decreaseAvailableCopies();
 		bookRepository.save(book);
 		LocalDate now = LocalDate.now();
 		BorrowRecord borrowRecord = BorrowRecord.builder().user(user).book(book).borrowDate(now).dueDate(now.plusDays(14)).build();
 		borrowRecordRepository.save(borrowRecord);
 		return BorrowMapper.toResponse(borrowRecord);
+	}
+
+	private User resolveBorrower(Long userId)
+	{
+		if (ObjectUtils.isEmpty(userId))
+			return userContext.getCurrentUser();
+		return userRepository.findById(userId).orElseThrow(() -> ResourceNotFoundException.create(User.class, userId));
 	}
 
 	@Override
