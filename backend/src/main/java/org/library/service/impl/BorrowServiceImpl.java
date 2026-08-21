@@ -55,10 +55,8 @@ public class BorrowServiceImpl implements BorrowService
 				.orElseThrow(() -> ResourceNotFoundException.create(BorrowRecord.class, borrowId));
 		if (!ObjectUtils.isEmpty(borrowRecord.getReturnDate()))
 			throw new BookAlreadyReturnedException();
-
 		borrowRecord.setReturnDate(LocalDate.now());
 		borrowRecordRepository.save(borrowRecord);
-
 		Book book = borrowRecord.getBook();
 		book.increaseAvailableCopies();
 		bookRepository.save(book);
