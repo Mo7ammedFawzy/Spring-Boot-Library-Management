@@ -4,59 +4,119 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Geist Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Lora', 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', Cambria, 'Playfair Display', Lora, serif;
+  --font-display: Georgia, 'Times New Roman', Cambria, 'Playfair Display', serif;
 
-  --color-brand-50: #fceee8;
-  --color-brand-100: #f7d7c9;
-  --color-brand-200: #efa98d;
-  --color-brand-300: #e27d55;
-  --color-brand-400: #c95a2c;
-  --color-brand-500: #9f3c11;
-  --color-brand-600: #8a340d;
-  --color-brand-700: #7a2a00;
-  --color-brand-800: #5c1f00;
-  --color-brand-900: #3f1400;
-  --color-brand-950: #330f00;
+  /* Primary Palette: Deep Navy Blue (#1E3A5F) & Steel Blue (#4A7A9D) */
+  --color-brand-50: #f0f5fa;
+  --color-brand-100: #dfebf5;
+  --color-brand-200: #bdd7ec;
+  --color-brand-300: #8cbade;
+  --color-brand-400: #4a7a9d;
+  --color-brand-500: #2e5b88;
+  --color-brand-600: #1e3a5f;
+  --color-brand-700: #172e4d;
+  --color-brand-800: #12243c;
+  --color-brand-900: #0d1a2c;
+  --color-brand-950: #070e18;
+
+  /* Secondary Accent: Warm Amber (#D4A017) */
+  --color-amber-50: #fdfbf2;
+  --color-amber-100: #fbf4dc;
+  --color-amber-200: #f6e6b2;
+  --color-amber-300: #efd381;
+  --color-amber-400: #e5be4a;
+  --color-amber-500: #d4a017;
+  --color-amber-600: #b5840f;
+  --color-amber-700: #8f650c;
+  --color-amber-800: #6e4d0c;
+  --color-amber-900: #4f370b;
+  --color-amber-950: #2f2005;
+
+  /* Steel Blue Palette (#4A7A9D) */
+  --color-steel-50: #f0f6fa;
+  --color-steel-100: #e0edf4;
+  --color-steel-200: #c1dae9;
+  --color-steel-300: #97bed7;
+  --color-steel-400: #6e9fc1;
+  --color-steel-500: #4a7a9d;
+  --color-steel-600: #396281;
+  --color-steel-700: #2e4e67;
+  --color-steel-800: #243d50;
+  --color-steel-900: #1a2c3a;
+
+  /* Slate / Charcoal Neutrals (#212529, #6C757D, #ADB5BD, #E1E4E8, #F7F8FA) */
+  --color-slate-50: #f7f8fa;
+  --color-slate-100: #f1f3f5;
+  --color-slate-200: #e1e4e8;
+  --color-slate-300: #ced4da;
+  --color-slate-400: #adb5bd;
+  --color-slate-500: #6c757d;
+  --color-slate-600: #495057;
+  --color-slate-700: #343a40;
+  --color-slate-800: #212529;
+  --color-slate-900: #1a1d20;
+  --color-slate-950: #111315;
 }
 
 :root {
-  --ui-nav-active: #fceee8;
+  /* Athenaeum Design System CSS Variables */
+  --color-primary: #1e3a5f;
+  --color-primary-light: #4a7a9d;
+  --color-secondary: #d4a017;
+
+  --color-success: #2e7d32;
+  --color-warning: #f59e0b;
+  --color-error: #c0392b;
+  --color-info: #3b9c9c;
+
+  --color-background: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-border: #e1e4e8;
+  --color-border-subtle: #f1f3f5;
+  --color-border-strong: #ced4da;
+
+  --color-text-primary: #212529;
+  --color-text-secondary: #6c757d;
+  --color-disabled: #adb5bd;
+
+  /* Nuxt UI theme bindings */
+  --ui-nav-active: #1e3a5f;
   --ui-bg-card: #ffffff;
 
-  --ui-bg: #fbf9f8;
-  --ui-bg-elevated: #efedec;
-  --ui-bg-accented: #e5e1e0;
+  --ui-bg: #f7f8fa;
+  --ui-bg-elevated: #ffffff;
+  --ui-bg-accented: #f1f3f5;
 
-  --ui-border: #e5e1e0;
-  --ui-border-muted: #eae6e4;
-  --ui-border-accented: #d6d0cd;
+  --ui-border: #e1e4e8;
+  --ui-border-muted: #f1f3f5;
+  --ui-border-accented: #ced4da;
 
-  --ui-text: #1b1c1b;
-  --ui-text-dimmed: #8a847e;
-  --ui-text-muted: #6e6863;
-  --ui-text-highlighted: #1b1c1b;
+  --ui-text: #212529;
+  --ui-text-dimmed: #adb5bd;
+  --ui-text-muted: #6c757d;
+  --ui-text-highlighted: #212529;
   --ui-text-inverted: #ffffff;
 
-  --ui-header-height: 3.5rem;
+  --ui-header-height: 4rem;
 }
 
 .dark {
-  --ui-nav-active: #3a2118;
-  --ui-bg-card: #292524;
+  --ui-nav-active: #2e5b88;
+  --ui-bg-card: #1a2433;
 
-  --ui-bg: #1c1917;
-  --ui-bg-elevated: #292524;
-  --ui-bg-accented: #44403c;
+  --ui-bg: #0e1724;
+  --ui-bg-elevated: #1e2d3f;
+  --ui-bg-accented: #25374c;
 
-  --ui-border: #3a3532;
-  --ui-border-muted: #292524;
-  --ui-border-accented: #4a4440;
+  --ui-border: #2e3e53;
+  --ui-border-muted: #1e2d3f;
+  --ui-border-accented: #3b4e66;
 
-  --ui-text: #e7e5e4;
-  --ui-text-dimmed: #78716c;
-  --ui-text-muted: #a8a29e;
-  --ui-text-highlighted: #faf9f7;
-  --ui-text-inverted: #1c1917;
+  --ui-text: #e1e7ee;
+  --ui-text-dimmed: #7d8d9f;
+  --ui-text-muted: #9eaebf;
+  --ui-text-highlighted: #ffffff;
+  --ui-text-inverted: #0e1724;
 }

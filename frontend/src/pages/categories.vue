@@ -272,7 +272,7 @@ watch(name, (val: string) => {
               variant="solid"
               :icon="editingItem ? 'i-lucide-save' : 'i-lucide-tag'"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-600 hover:!bg-brand-700 dark:!bg-brand-500 dark:hover:!bg-brand-400 text-white"
               :loading="saving"
               @click="entityForm?.submit()"
             >

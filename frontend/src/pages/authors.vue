@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import type { ColDef } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
-import type { FormError, BreadcrumbItem } from '@nuxt/ui'
+import type { FormError } from '@nuxt/ui'
 import {
   createAuthor,
   deleteAuthor,
@@ -11,11 +11,6 @@ import {
   type Author
 } from '../services/authors'
 import { useCrudPage } from '../composables/useCrudPage'
-
-const breadcrumbItems = ref<BreadcrumbItem[]>([
-  { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
-  { label: 'Authors', icon: 'i-lucide-user' }
-])
 
 const fieldUi = {
   base: '!rounded-lg !bg-(--ui-bg-card) !py-3 !text-sm !ring-(--ui-border) !placeholder:text-muted focus-visible:!ring-2 focus-visible:!ring-primary focus-visible:!outline-none'
@@ -255,7 +250,7 @@ watch(name, (val: string) => {
               variant="solid"
               :icon="editingItem ? 'i-lucide-save' : 'i-lucide-user'"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-600 hover:!bg-brand-700 dark:!bg-brand-500 dark:hover:!bg-brand-400 text-white"
               :loading="saving"
               @click="entityForm?.submit()"
             >

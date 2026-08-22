@@ -4,9 +4,9 @@
     class="inline-flex items-center gap-3.5 group select-none"
   >
     <div class="relative flex items-center justify-center">
-      <!-- Open Book Icon matching design -->
+      <!-- Open Book Icon in Warm Amber matching DESIGN.md -->
       <svg
-        class="w-10 h-10 text-primary transition-transform duration-200 group-hover:scale-105"
+        class="w-10 h-10 text-amber-500 transition-transform duration-200 group-hover:scale-105"
         viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -53,11 +53,11 @@
     </div>
 
     <div class="flex flex-col">
-      <span class="font-serif text-[23px] font-bold tracking-tight text-default leading-none">
+      <span class="font-serif text-[20px] font-bold tracking-[0.12em] uppercase text-brand-600 dark:text-brand-300 leading-none">
         Athenaeum
       </span>
-      <span class="text-[10px] font-bold uppercase tracking-[0.24em] text-dimmed mt-1.5 leading-none">
-        Management
+      <span class="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mt-1.5 leading-none">
+        Library Management System
       </span>
     </div>
   </RouterLink>

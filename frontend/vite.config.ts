@@ -15,10 +15,10 @@ export default defineConfig({
       ui: {
         colors: {
           primary: 'brand',
-          secondary: 'teal',
+          secondary: 'amber',
           success: 'green',
           error: 'red',
-          neutral: 'stone'
+          neutral: 'slate'
         }
       }
     })

@@ -1,5 +1,5 @@
-<script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import type { ColDef, GetRowIdParams } from 'ag-grid-community'
 import ActionsCell from '../components/grid/ActionsCell.vue'
 import type { FormError, BreadcrumbItem } from '@nuxt/ui'
@@ -111,7 +111,7 @@ function validateBook(state: BookFormState): FormError[] {
   return errors
 }
 
-function toInput(state: BookFormState, editingItem: Book | null): BookInput {
+function toInput(state: BookFormState, _editingItem?: Book | null): BookInput {
   return {
     title: state.title.trim(),
     description: state.description.trim(),
@@ -232,8 +232,29 @@ function decrementCopies() {
   form.value.availableCopies = Math.max(1, (Number(form.value.availableCopies) || 1) - 1)
 }
 
+const route = useRoute()
+
+function checkActionQuery() {
+  if (route.query.action === 'add') {
+    openAdd()
+  }
+}
+
+watch(() => route.query.action, (action) => {
+  if (action === 'add') {
+    openAdd()
+  }
+})
+
+watch(() => route.query._t, () => {
+  if (route.query.action === 'add') {
+    openAdd()
+  }
+})
+
 async function loadAll() {
   await Promise.all([load(), loadOptions()])
+  checkActionQuery()
 }
 
 onMounted(loadAll)
@@ -550,7 +571,7 @@ const copiesUi = {
               variant="solid"
               :icon="editingItem ? 'i-lucide-save' : 'i-lucide-book-open'"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-600 hover:!bg-brand-700 dark:!bg-brand-500 dark:hover:!bg-brand-400 text-white"
               :loading="saving"
               @click="entityForm?.submit()"
             >

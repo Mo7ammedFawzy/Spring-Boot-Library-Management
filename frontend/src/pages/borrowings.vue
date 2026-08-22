@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue'
+import { computed, onMounted, ref, watch, type Ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import type { ColDef, GetRowIdParams, GridApi } from 'ag-grid-community'
 import type { FormError, SelectMenuItem } from '@nuxt/ui'
 import { push } from 'notivue'
@@ -25,6 +26,9 @@ import {
 import { fetchBooks, type Book } from '../services/books'
 import { ApiError } from '../services/api'
 
+const route = useRoute()
+const router = useRouter()
+
 const rows: Ref<Borrowing[]> = ref([])
 const books: Ref<Book[]> = ref([])
 const users: Ref<BorrowingUser[]> = ref([])
@@ -36,6 +40,46 @@ const statusFilters = ref<BorrowingStatus[]>([])
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dateRange = ref<any>(null)
 
+const currentTab = computed<'all' | 'loans' | 'returns'>({
+  get: () => {
+    const tab = route.query.tab as string
+    if (tab === 'loans') return 'loans'
+    if (tab === 'returns') return 'returns'
+    return 'all'
+  },
+  set: (val) => {
+    router.replace({ query: { ...route.query, tab: val === 'all' ? undefined : val } })
+  }
+})
+
+function applyTabFilter(tab: 'all' | 'loans' | 'returns') {
+  if (tab === 'loans') {
+    statusFilters.value = ['Borrowed', 'Due Today', 'Overdue']
+  } else if (tab === 'returns') {
+    statusFilters.value = ['Returned']
+  } else {
+    statusFilters.value = []
+  }
+}
+
+watch(currentTab, (tab) => {
+  applyTabFilter(tab)
+}, { immediate: true })
+
+function checkActionQuery() {
+  if (route.query.action === 'borrow' || route.query.action === 'new') {
+    openAdd()
+  }
+}
+
+watch(() => route.query.action, () => {
+  checkActionQuery()
+})
+
+watch(() => route.query._t, () => {
+  checkActionQuery()
+})
+
 const today = todayStr()
 
 async function loadAll() {
@@ -45,6 +89,7 @@ async function loadAll() {
     rows.value = borrowings
     books.value = bookList
     users.value = userList
+    checkActionQuery()
   } catch (e) {
     loadError.value = e instanceof ApiError ? e.message : 'Failed to load borrowings.'
   }
@@ -602,7 +647,7 @@ const detailStatus = computed<BorrowingStatus>(() => (detail.value ? getStatus(d
               variant="solid"
               icon="i-lucide-book-open"
               size="lg"
-              class="!rounded-lg !px-8 !py-2.5 !bg-brand-700 dark:!bg-primary-400 hover:!bg-brand-600 dark:hover:!bg-primary-300"
+              class="!rounded-lg !px-8 !py-2.5 !bg-brand-600 hover:!bg-brand-700 dark:!bg-brand-500 dark:hover:!bg-brand-400 text-white"
               :loading="saving"
               @click="borrowForm?.submit()"
             >
